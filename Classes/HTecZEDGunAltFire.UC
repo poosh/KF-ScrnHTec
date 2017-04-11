@@ -1,0 +1,2 @@
+class HTecZEDGunAltFire extends ZEDGunAltFire;
+
