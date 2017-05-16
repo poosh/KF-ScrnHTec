@@ -6,7 +6,7 @@ class KVoltPickup extends KFWeaponPickup;
 
 defaultproperties
 {
-     Weight=4
+     Weight=3
      cost=1000
      AmmoCost=23
      BuyClipSize=40

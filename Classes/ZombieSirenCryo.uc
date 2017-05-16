@@ -2,7 +2,7 @@
 // @author PooSH, 2015
 class ZombieSirenCryo extends ZombieSiren
     abstract;
-    
+
 var transient float LastScreamTime; // prevent scream canceling
 var transient float NextFrozenCheckTime; // next time we'll need to check for frozen zeds
 var FreezeRules FreezeRules; // this is set in FreezeRules.PostBeginPlay()
@@ -13,7 +13,7 @@ function TakeDamage(int Damage, Pawn InstigatedBy, Vector HitLocation, Vector Mo
 {
     if (InstigatedBy == none || class<KFWeaponDamageType>(DamType) == none)
         Super(Monster).TakeDamage(Damage, instigatedBy, hitLocation, momentum, DamType); // skip NONE-reference error  -- PooSH
-    else 
+    else
         Super(KFMonster).TakeDamage(Damage, instigatedBy, hitLocation, momentum, DamType);
 }
 
@@ -23,14 +23,14 @@ function bool ShouldDoShatterScream(Actor A)
 {
     local int i, FrozenCount, CanShatterCount;
     local float ScreamRadiusSqr;
-    
+
     if ( FreezeRules == none || Level.TimeSeconds < NextFrozenCheckTime )
-        return false; // already checked 
-     
-    NextFrozenCheckTime = Level.TimeSeconds + 2.0;     
+        return false; // already checked
+
+    NextFrozenCheckTime = Level.TimeSeconds + 2.0;
     if ( FreezeRules.Frozen.Length == 0 )
         return false;
-        
+
     NextFrozenCheckTime = Level.TimeSeconds + 5;
     ScreamRadiusSqr = ScreamRadius * ScreamRadius;
     for ( i = 0; i < FreezeRules.Frozen.Length; ++i ) {
@@ -41,17 +41,17 @@ function bool ShouldDoShatterScream(Actor A)
             }
         }
     }
-    
+
     if ( CanShatterCount > 0 && CanShatterCount > 5.0 * frand() ) {
-        NextFrozenCheckTime = Level.TimeSeconds + 5; // give cool down before next shattering 
+        NextFrozenCheckTime = Level.TimeSeconds + 5; // give cool down before next shattering
         return true;
     }
-    
+
     if ( CanShatterCount > 0 )
         NextFrozenCheckTime = Level.TimeSeconds + 0.5;
     else if ( FrozenCount > 0 )
         NextFrozenCheckTime = Level.TimeSeconds + 1;
-        
+
     return false;
 }
 
@@ -71,7 +71,7 @@ function RangedAttack(Actor A)
 		bShotAnim = true;
 		LastFireTime = Level.TimeSeconds;
 	}
-	else if ( Dist < MeleeRange + CollisionRadius + A.CollisionRadius 
+	else if ( Dist < MeleeRange + CollisionRadius + A.CollisionRadius
             && (bDecapitated || bZapped || Level.TimeSeconds - LastScreamTime < 7) )
 	{
 		bShotAnim = true;
@@ -81,7 +81,7 @@ function RangedAttack(Actor A)
 		Controller.bPreparingMove = true;
 		Acceleration = vect(0,0,0);
 	}
-	else if( Dist <= ScreamRadius && !bDecapitated && !bZapped 
+	else if( Dist <= ScreamRadius && !bDecapitated && !bZapped
             || (Level.TimeSeconds > NextFrozenCheckTime && ShouldDoShatterScream(A)) )
 	{
         LastScreamTime = Level.TimeSeconds;
@@ -98,7 +98,7 @@ function RangedAttack(Actor A)
             Acceleration = AccelRate * Normal(A.Location - Location);
         }
 	}
-}    
+}
 
 // overridden to shatter zeds
 // fixed instigator in calling TakeDamage()
@@ -109,7 +109,7 @@ simulated function HurtRadius( float DamageAmount, float DamageRadius, class<Dam
 	local float damageScale, dist;
 	local vector dir;
 	local float UsedDamageAmount;
-    
+
 
 	if( bHurtEntry )
 		return;
@@ -130,18 +130,18 @@ simulated function HurtRadius( float DamageAmount, float DamageRadius, class<Dam
             if ( M != none ) {
                 UsedDamageAmount = 1; // just a little bit to pass it in NetDamage()
                 damageScale = 1;
-                
+
                 if ( FreezeRules != none && FreezeRules.IsFrozen(M) ) {
                     ShatterFrozenZed(M, HitLocation, dist);
                     continue;
                 }
             }
-            else { 
+            else {
                 damageScale = 1 - FMax(0,(dist - Victims.CollisionRadius)/DamageRadius);
                 if (!Victims.IsA('KFHumanPawn')) // If it aint human, don't pull the vortex crap on it.
                     Momentum = 0;
-                    
-                if (Victims.IsA('KFGlassMover')) 
+
+                if (Victims.IsA('KFGlassMover'))
                     UsedDamageAmount = 100000; // Siren always shatters glass
                 else
                     UsedDamageAmount = DamageAmount;
@@ -154,7 +154,7 @@ simulated function HurtRadius( float DamageAmount, float DamageRadius, class<Dam
 		}
 	}
 	bHurtEntry = false;
-}  
+}
 
 // turns frozen monster into deadly ice shards
 function ShatterFrozenZed(KFMonster M, Vector HitLocation, float Distance)
@@ -164,32 +164,32 @@ function ShatterFrozenZed(KFMonster M, Vector HitLocation, float Distance)
     local float DmgMult;
     local int Count;
     local Projectile proj;
-    local float DistancePct; 
-    
+    local float DistancePct;
+
     // save zed's data, because he'll be dead after shattering
     HitLocation = M.Location; // calculate shard offset from the center of zed, not where it got hit
     ColH = M.CollisionHeight;
     ColR = M.CollisionRadius;
-    Count = M.Health / 50;    
-    
+    Count = M.Health / 50;
+
     if ( !FreezeRules.ShatterZed(M, -1, Controller, ScreamDamageType) )
         return; // unable to shatter zed
 
     DistancePct = Distance/ScreamRadius;
-        
+
     if ( M != none )
-        M.SetCollision(false);    
+        M.SetCollision(false);
 
     DmgMult = DifficultyDamageModifer();
     if ( Count > 20 ) {
-        DmgMult += float(Count-20) / 20.0; 
+        DmgMult += float(Count-20) / 20.0;
         Count = 20;
     }
-    
+
     ProjLoc = HitLocation; // first projectile always spawn in the center to fly a straight line
     while ( Count > 0 ) {
         --Count;
-        
+
         proj = Spawn(ShatterProjClass, self, '', ProjLoc, rotator(ProjLoc - Location));
         if ( proj != none ) {
             proj.Instigator = self;
@@ -206,10 +206,10 @@ function ShatterFrozenZed(KFMonster M, Vector HitLocation, float Distance)
     }
 }
 
- 
+
 defaultproperties
-{ 
-    ScreamForce=-150000 // stronger pull
+{
     ShatterProjClass=class'ScrnHTec.SirenDart'
     MenuName="Cryo Siren"
+    ScreamDamage=7 // lowered scream damage to compensate fixed vortex pull
 }

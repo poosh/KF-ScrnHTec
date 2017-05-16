@@ -6,6 +6,28 @@ function float MaxRange()
     return 1500;
 }
 
+simulated function bool AllowFire()
+{
+    local FreezerGun W;
+
+    W = FreezerGun(Weapon);
+	if( W.bIsReloading || KFPawn(Instigator).SecondaryItem != none || KFPawn(Instigator).bThrowingNade )
+		return false;
+
+	if ( W.AltMagAmmoRemaining < 1 ) {
+		if ( Level.TimeSeconds - LastClickTime > FireRate ) {
+			W.PlayOwnedSound(NoAmmoSound, SLOT_Interact, TransientSoundVolume,,,, false);
+			LastClickTime = Level.TimeSeconds;
+			if(Weapon.HasAnim(EmptyAnim))
+				Weapon.PlayAnim(EmptyAnim, EmptyAnimRate, 0.0);
+		}
+		return false;
+	}
+	LastClickTime = Level.TimeSeconds;
+
+	return Super(WeaponFire).AllowFire();
+}
+
 defaultproperties
 {
     Spread=1500.000000

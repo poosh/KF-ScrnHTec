@@ -8,7 +8,7 @@ var ScrnGameRules ScrnGameRules;
 var FreezeReplicationInfo FreezeRI;
 var float FreezeTreshold; // % of HealthMax to be done to fully freeze zed
 var float FrozenDamageResistance; // frozen zed gets less damage
-var float FrozenDamageMult;       // but it is possible to break the ice and instant kill zed  
+var float FrozenDamageMult;       // but it is possible to break the ice and instant kill zed
 var float FrozenDamageMultHS;     // damage that can do headshots does more damage to ice
 var float FrozenDamageMultSG;     // shotgun-specific damage mult
 
@@ -28,10 +28,10 @@ struct SFrozen {
     var float CurrentFreeze;
     var float FreezeTreshold; // when CurrentFreeze reaches this value, zed becomes completely frozen
     // FoT: Freeze over Time
-    var float FoT; 
-    var float FoT_Remaining; 
+    var float FoT;
+    var float FoT_Remaining;
     var float WarmTime; // time after which zed should get warmed up
-    
+
     var int Damage; // damage done during freeze
     var vector FocalPoint;
 };
@@ -42,23 +42,23 @@ final static function FreezeRules FindOrSpawnMe(GameInfo Game)
 {
     local GameRules GR;
     local FreezeRules FR;
-    
+
     FR = FreezeRules(Game.GameRulesModifiers);
     if ( FR == none ) {
-    
+
         for ( GR = Game.GameRulesModifiers; GR != none && FR == none; GR = GR.NextGameRules )
             FR = FreezeRules(Game.GameRulesModifiers);
-            
+
         // Freeze rules not found. Spawn it now
         if ( FR == none ) {
             FR = Game.Spawn(Class'FreezeRules', Game);
             if( Game.GameRulesModifiers==None )
                 Game.GameRulesModifiers = FR;
             else
-                Game.GameRulesModifiers.AddGameRules(FR);        
+                Game.GameRulesModifiers.AddGameRules(FR);
         }
     }
-    
+
     return FR;
 }
 
@@ -75,7 +75,7 @@ function AddGameRules(GameRules GR)
         Super.AddGameRules(GR);
 }
 
-function int NetDamage( int OriginalDamage, int Damage, pawn injured, pawn instigatedBy, 
+function int NetDamage( int OriginalDamage, int Damage, pawn injured, pawn instigatedBy,
 	vector HitLocation, out vector Momentum, class<DamageType> DamageType )
 {
     local class<KFWeaponDamageType> KFDamType;
@@ -85,7 +85,7 @@ function int NetDamage( int OriginalDamage, int Damage, pawn injured, pawn insti
     local class<KFVeterancyTypes> Perk;
     local KFMonster ZedVictim;
     local int idx;
-    
+
     KFDamType = class<KFWeaponDamageType>(damageType);
     ZedVictim = KFMonster(injured);
     if ( instigatedBy != none )
@@ -96,9 +96,9 @@ function int NetDamage( int OriginalDamage, int Damage, pawn injured, pawn insti
         Perk = KFPRI.ClientVeteranSkill;
     else
         Perk = class'KFVeterancyTypes';
-        
-    
-    if ( KFDamType != none && ZedVictim != none && ZedVictim.Controller != none  && ZedVictim.Health > 0 ) 
+
+
+    if ( KFDamType != none && ZedVictim != none && ZedVictim.Controller != none  && ZedVictim.Health > 0 )
     {
         FreezeDT = class<DamTypeFreezerBase>(damageType);
         if ( FreezeDT != none ) {
@@ -109,7 +109,7 @@ function int NetDamage( int OriginalDamage, int Damage, pawn injured, pawn insti
                     ZedVictim.Timer(); // stop burning behavior
                 }
             }
-            
+
             if ( !ZedVictim.bBurnified ) {
                 idx = FrozenIndex(ZedVictim, true);
                 if ( KFPRI != none && KFPRI.ClientVeteranSkill != none )
@@ -118,23 +118,23 @@ function int NetDamage( int OriginalDamage, int Damage, pawn injured, pawn insti
                     Frozen[idx].WarmTime = fmax(Frozen[idx].WarmTime, Level.TimeSeconds + 0.5);
                     // allow shattering for ice darts
                     if ( FreezeDT.default.bCheckForHeadShots ) {
-                        Damage *= FrozenDamageResistance * FreezeDT.default.HeadShotDamageMult 
+                        Damage *= FrozenDamageResistance * FreezeDT.default.HeadShotDamageMult
                             * FreezeDT.default.ShatteringDamageMult;
                         Frozen[idx].Damage += Damage * FrozenDamageMultHS;
                         if ( ZedVictim.Health <= Damage + Frozen[idx].Damage ) {
                             Damage += Frozen[idx].Damage;
                             ShatterZed(ZedVictim, idx, instigatedBy.Controller, DamageType);
-                        }                        
+                        }
                     }
-                    else 
+                    else
                         Damage = 0;
                 }
                 else {
-                    Frozen[idx].LastFrozenBy = PC;    
-                    Frozen[idx].LastFrozenDamType = FreezeDT;                   
+                    Frozen[idx].LastFrozenBy = PC;
+                    Frozen[idx].LastFrozenDamType = FreezeDT;
                     // Freeze over Time
-                    if ( FreezeDT.default.FoT_Duration > 0 && (Frozen[idx].FoT_Remaining < 0.5 
-                            || Frozen[idx].FoT < Damage * FreezeDT.default.FoT_Ratio) ) 
+                    if ( FreezeDT.default.FoT_Duration > 0 && (Frozen[idx].FoT_Remaining < 0.5
+                            || Frozen[idx].FoT < Damage * FreezeDT.default.FoT_Ratio) )
                     {
                         Frozen[idx].FoT_Remaining = FreezeDT.default.FoT_Duration;
                         Frozen[idx].FoT = Damage * FreezeDT.default.FoT_Ratio;
@@ -152,7 +152,7 @@ function int NetDamage( int OriginalDamage, int Damage, pawn injured, pawn insti
             //debug
             // Level.GetLocalPlayerController().ClientMessage(Frozen[idx].CurrentFreeze $" / "$ Frozen[idx].FreezeTreshold);
         }
-        else { 
+        else {
             idx = FrozenIndex(ZedVictim, false);
             if ( idx != -1 ) {
                 if ( KFDamType.default.bDealBurningDamage ) {
@@ -163,10 +163,10 @@ function int NetDamage( int OriginalDamage, int Damage, pawn injured, pawn insti
                 }
                 else if ( Frozen[idx].bFrozen ) {
                     if ( KFDamType.default.bCheckForHeadShots && class<DamTypeCrossbuzzsaw>(KFDamType) == none ) {
-                        Damage *= KFDamType.default.HeadShotDamageMult;                        
+                        Damage *= KFDamType.default.HeadShotDamageMult;
                         if ( KFDamType.default.bIsPowerWeapon || KFDamType.default.bIsMeleeDamage ) {
                             Frozen[idx].Damage += Damage * FrozenDamageMultSG;
-                            if ( ClassIsChildOf(KFDamType, class'DamTypeChainsaw') 
+                            if ( ClassIsChildOf(KFDamType, class'DamTypeChainsaw')
                                     && Level.TimeSeconds > NextChainsawTime )
                             {
                                 ProgressAchievement(PC, 'Freeze_Chainsaw', 1);
@@ -174,10 +174,10 @@ function int NetDamage( int OriginalDamage, int Damage, pawn injured, pawn insti
                                 NextChainsawTime = Level.TimeSeconds + 1;
                             }
                         }
-                        else 
+                        else
                             Frozen[idx].Damage += Damage * FrozenDamageMultHS;
                     }
-                    else 
+                    else
                         Frozen[idx].Damage += Damage * FrozenDamageMult;
                     Damage *= FrozenDamageResistance;
                     if ( ZedVictim.Health <= Damage + Frozen[idx].Damage ) {
@@ -188,10 +188,10 @@ function int NetDamage( int OriginalDamage, int Damage, pawn injured, pawn insti
             }
         }
     }
-    
+
     if ( NextGameRules != None )
         return NextGameRules.NetDamage( OriginalDamage,Damage,injured,instigatedBy,HitLocation,Momentum,DamageType);
-        
+
     return Damage;
 }
 
@@ -199,25 +199,25 @@ function bool PreventDeath(Pawn Killed, Controller Killer, class<DamageType> dam
 {
     local KFMonster M;
     local PlayerController Zapper;
-    
+
     if ( (NextGameRules != None) && NextGameRules.PreventDeath(Killed,Killer, damageType,HitLocation) )
-        return true;    
-    
+        return true;
+
     M = KFMonster(Killed);
-    if ( M != none && M.ZappedBy != none ) 
+    if ( M != none && M.ZappedBy != none )
         Zapper = PlayerController(M.ZappedBy.Controller);
     // killing zapped zed gives perk progression to zapper
-    if ( Zapper != none && SRStatsBase(Zapper.SteamStatsAndAchievements) != none 
+    if ( Zapper != none && SRStatsBase(Zapper.SteamStatsAndAchievements) != none
             && SRStatsBase(Zapper.SteamStatsAndAchievements).Rep != none )
-        SRStatsBase(Zapper.SteamStatsAndAchievements).Rep.ProgressCustomValue(Class'HTecProg',1);
-    
+        SRStatsBase(Zapper.SteamStatsAndAchievements).Rep.ProgressCustomValue(Class'HTecProg', min(1, M.default.ZapThreshold * 4.01));
+
     return false;
 }
 
 function bool IsFrozen(KFMonster M)
 {
     local int i;
-    
+
     i = FrozenIndex(M, false);
     return i >= 0 && Frozen[i].bFrozen;
 }
@@ -225,11 +225,11 @@ function bool IsFrozen(KFMonster M)
 function int FrozenIndex(KFMonster M, bool bCreate)
 {
     local int i;
-    
-    for ( i=0; i < Frozen.length; ++i ) 
+
+    for ( i=0; i < Frozen.length; ++i )
         if ( Frozen[i].M == M )
             return i;
-    
+
     if ( bCreate ) {
         Frozen.insert(i, 1);
         Frozen[i].M = M;
@@ -237,18 +237,18 @@ function int FrozenIndex(KFMonster M, bool bCreate)
         Frozen[i].WarmTime = Level.TimeSeconds + 2.0;
         return i;
     }
-    
+
     return -1;
 }
 
 function int GetFrozenCount()
 {
     local int i, c;
-    
-    for ( i=0; i < Frozen.length; ++i ) 
+
+    for ( i=0; i < Frozen.length; ++i )
         if ( Frozen[i].bFrozen && Frozen[i].M != none && Frozen[i].M.Health > 0 )
             ++c;
-    
+
     return c;
 }
 
@@ -259,10 +259,10 @@ function Tick(float DeltaTime)
     local int i;
     local bool bRemove;
     local byte FrozenCount;
-    
+
     while ( i < Frozen.length ) {
         bRemove = Frozen[i].M == none || Frozen[i].M.Health <= 0;
-        
+
         if ( !bRemove ) {
             if ( Frozen[i].FoT_Remaining > 0 ) {
                 Frozen[i].CurrentFreeze += Frozen[i].FoT * DeltaTime;
@@ -286,21 +286,21 @@ function Tick(float DeltaTime)
                         bRemove = true;
                 }
             }
-            
+
             if ( Frozen[i].bFrozen ) {
                 FrozenCount++;
                 if ( Frozen[i].M.IsAnimating(0) || Frozen[i].M.IsAnimating(1) )
                     FreezeZed(Frozen[i].M, i);
                 else if ( Frozen[i].M.Controller != none ) {
                     // prevent rotating
-                    Frozen[i].M.Controller.FocalPoint = Frozen[i].FocalPoint; 
+                    Frozen[i].M.Controller.FocalPoint = Frozen[i].FocalPoint;
                     Frozen[i].M.Controller.Enemy = none;
-                    Frozen[i].M.Controller.Focus = none;                  
+                    Frozen[i].M.Controller.Focus = none;
                 }
-            }  
+            }
         }
-        
-        if ( bRemove ) 
+
+        if ( bRemove )
             Frozen.Remove(i, 1);
         else
             i++;
@@ -321,12 +321,12 @@ function FreezeZed(KFMonster M, int FrozenIndex)
         else if ( ZombieFleshpound(M) != none )
             ProgressAchievement(Frozen[FrozenIndex].LastFrozenBy, 'Freeze_FP', 1);
         else if ( ZombieBoss(M) != none )
-            ProgressAchievement(Frozen[FrozenIndex].LastFrozenBy, 'Freeze_Pat', 1);            
+            ProgressAchievement(Frozen[FrozenIndex].LastFrozenBy, 'Freeze_Pat', 1);
         ProgressAchievement(Frozen[FrozenIndex].LastFrozenBy, 'Freeze_IceAge', 1);
     }
     if ( Frozen.length >= 20 && GetFrozenCount() >= 20 )
         ScrnGameRules.ProgressAchievementForAllPlayers('Freeze_Festival', 1, true);
-    
+
     M.SetOverlayMaterial(FreezeRI.FrozenMaterial, 999, true);
     Frozen[FrozenIndex].FocalPoint = M.Location + 512*vector(M.Rotation);
     M.Velocity = M.PhysicsVolume.Gravity;
@@ -338,16 +338,16 @@ function FreezeZed(KFMonster M, int FrozenIndex)
     M.Acceleration = vect(0, 0, 0);
     M.SetTimer(0, false);
     M.StopAnimating();
-    
+
     if ( M.HeadRadius > 0 )
         M.HeadRadius = -M.HeadRadius; // disable headshots
-  
+
     if ( M.Controller != none ) {
-        M.Controller.FocalPoint = Frozen[FrozenIndex].FocalPoint; 
+        M.Controller.FocalPoint = Frozen[FrozenIndex].FocalPoint;
         M.Controller.Enemy = none;
-        M.Controller.Focus = none;   
+        M.Controller.Focus = none;
         if ( !M.Controller.IsInState('WaitForAnim') )
-            M.Controller.GoToState('WaitForAnim');        
+            M.Controller.GoToState('WaitForAnim');
         KFMonsterController(M.Controller).bUseFreezeHack = True;
     }
 }
@@ -356,9 +356,9 @@ function UnfreezeZed(KFMonster M, int FrozenIndex)
 {
     if ( M == none || M.Controller == none || M.Health <= 0 )
         return;
-    
+
     M.SetOverlayMaterial(none, 0.1, true);
-    
+
     if ( M.HeadRadius < 0 )
         M.HeadRadius = -M.HeadRadius; //enable headshots
     M.bShotAnim = false;
@@ -383,17 +383,17 @@ function bool ShatterZed(KFMonster ZedVictim, int FrozenIdx, Controller Killer, 
     local int MaxDosh;
     local KFPlayerReplicationInfo KFPRI;
     local SRStatsBase FreezerStats;
-    
+
     if ( FrozenIdx < 0 )
         FrozenIdx = FrozenIndex(ZedVictim, false);
     if ( FrozenIdx < 0 )
         return false; // zed is not frozen
-        
+
     if ( Killer != none )
         KFPRI = KFPlayerReplicationInfo(Killer.PlayerReplicationInfo);
     FreezerStats = SRStatsBase(Frozen[FrozenIdx].LastFrozenBy.SteamStatsAndAchievements);
     loc = ZedVictim.Location;
-    
+
     if ( bDosh && !ZedVictim.bDecapitated && DamageType != class'SirenScreamDamage' ) {
         if ( KFPRI != none && KFPRI.ClientVeteranSkill != none )
             MaxDosh = KFPRI.ClientVeteranSkill.static.GetCostScaling(KFPRI, class'FrozenDosh')
@@ -401,8 +401,8 @@ function bool ShatterZed(KFMonster ZedVictim, int FrozenIdx, Controller Killer, 
         else
             MaxDosh = ZedVictim.ScoringValue / 5;
     }
-    
-    if ( LastShatteredBy == Killer && LastShaterTime == Level.TimeSeconds ) { 
+
+    if ( LastShatteredBy == Killer && LastShaterTime == Level.TimeSeconds ) {
         if ( ++InstantShatterCounter == 10 ) {
             ProgressAchievement(PlayerController(Killer), 'Freeze_Storm', 1);
             InstantShatterCounter = 0;
@@ -412,10 +412,19 @@ function bool ShatterZed(KFMonster ZedVictim, int FrozenIdx, Controller Killer, 
         LastShatteredBy = PlayerController(Killer);
         LastShaterTime = Level.TimeSeconds;
         InstantShatterCounter = 1;
-    }  
-    
+    }
+
     if ( FreezerStats != none && !ZedVictim.bDecapitated ) {
-        FreezerStats.Rep.ProgressCustomValue(Class'HTecProg',1);
+        if (ZedVictim.default.Health >= 1500)
+            i = 4;
+        if (ZedVictim.default.Health >= 1000)
+            i = 3;
+        else if (ZedVictim.default.Health >= 500)
+            i = 2;
+        else
+            i = 1;
+        FreezerStats.Rep.ProgressCustomValue(Class'HTecProg', i);
+
         if ( LastShatteredBy != none && LastShatteredBy != Frozen[FrozenIdx].LastFrozenBy ) {
             class'ScrnAchievements'.static.ProgressAchievementByID(FreezerStats.Rep, 'Freeze_ShatterZeds', 1);
             ProgressAchievement(LastShatteredBy, 'Freeze_ShatterZeds', 1);
@@ -423,11 +432,11 @@ function bool ShatterZed(KFMonster ZedVictim, int FrozenIdx, Controller Killer, 
     }
     if ( ZombieBoss(ZedVictim) != none )
         ScrnGameRules.ProgressAchievementForAllPlayers('Freeze_ShatterPat', 1, true);
-    
+
     Spawn(ShatteredIce,,,loc);
     ZedVictim.bHidden = true;
-    ZedVictim.Died(Killer, DamageType, loc ); 
-    
+    ZedVictim.Died(Killer, DamageType, loc );
+
     // DO$H DO$H DO$H DO$H DO$H
     if ( MaxDosh > 0 ) {
         r = ZedVictim.GetViewRotation();
@@ -440,7 +449,7 @@ function bool ShatterZed(KFMonster ZedVictim, int FrozenIdx, Controller Killer, 
                 Dosh.HeadDosh = HeadDosh;
                 if ( PrevDosh != none )
                     PrevDosh.NextDosh = Dosh;
-                
+
                 Dosh.CashAmount = 1 + rand(MaxDosh);
                 Dosh.RespawnTime = 0;
                 Dosh.bDroppedCash = True;
@@ -450,7 +459,7 @@ function bool ShatterZed(KFMonster ZedVictim, int FrozenIdx, Controller Killer, 
                 Dosh.Velocity.Z += 500;
                 Dosh.InitDroppedPickupFor(None);
                 PrevDosh = Dosh;
-            }    
+            }
             r.Yaw += 13107;
         }
     }

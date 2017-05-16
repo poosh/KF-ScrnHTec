@@ -9,13 +9,24 @@ var Font                MyFont, SmallMyFont;
 var String              FontRef, FontSmallRef;
 var color               MyFontColor;
 
-var int                 OldValue;
+var         int         AltMagAmmoRemaining;
+var()       int         AltMagCapacity;
+
+var int                 RenderedValue;
 var localized   string  ReloadMessage;
 var localized   string  EmptyMessage;
 
 var array<Material>     GlowSkins; // 0 - glow off, length-1 - all lights on
 var array<string>       GlowSkinRefs; // 0 - glow off, length-1 - all lights on
 
+replication
+{
+	reliable if(Role == ROLE_Authority)
+		AltMagAmmoRemaining;
+
+	reliable if( bNetDirty && bNetOwner && Role==ROLE_Authority )
+		AltMagCapacity;
+}
 
 static function PreloadAssets(Inventory Inv, optional bool bSkipRefCount)
 {
@@ -23,7 +34,7 @@ static function PreloadAssets(Inventory Inv, optional bool bSkipRefCount)
     local int i;
 
 	super.PreloadAssets(Inv, bSkipRefCount);
-    
+
 	default.AmmoCounterScrTex = ScriptedTexture(DynamicLoadObject(default.AmmoCounterScrTexRef, class'ScriptedTexture', true));
     default.MyFont = Font(DynamicLoadObject(default.FontRef, class'Font', true));
     default.SmallMyFont = Font(DynamicLoadObject(default.FontSmallRef, class'Font', true));
@@ -43,20 +54,19 @@ static function PreloadAssets(Inventory Inv, optional bool bSkipRefCount)
 static function bool UnloadAssets()
 {
     local int i;
-    
+
 	if ( super.UnloadAssets() ) {
     	default.AmmoCounterScrTex = none;
     	default.SmallMyFont = none;
     	default.MyFont = none;
 		for ( i = 0; i < default.GlowSkins.Length; i++ )
 			default.GlowSkins[i] = none;
-            
+
 		return true;
 	}
 
 	return false;
 }
-
 
 simulated final function SetTextColor( byte R, byte G, byte B )
 {
@@ -69,11 +79,14 @@ simulated final function SetTextColor( byte R, byte G, byte B )
 
  simulated function RenderOverlays( Canvas Canvas )
 {
-	if( MagAmmoRemaining <= 0 )
+    local float CurValue;
+
+    CurValue = (AmmoAmount(0) + AmmoAmount(1))*1000 + MagAmmoRemaining + AltMagAmmoRemaining;
+	if( MagAmmoRemaining <= 0 && AltMagAmmoRemaining <= 0 )
 	{
-		if( OldValue!=-5 )
+		if( RenderedValue!=-5 )
 		{
-			OldValue = -5;
+			RenderedValue = -5;
 			MyFont = SmallMyFont;
 			SetTextColor(218,18,18);
 			MyMessage = EmptyMessage;
@@ -83,30 +96,33 @@ simulated final function SetTextColor( byte R, byte G, byte B )
 	}
 	else if( bIsReloading )
 	{
-		if( OldValue!=-4 )
+		if( RenderedValue!=-4 )
 		{
-			OldValue = -4;
+			RenderedValue = -4;
 			MyFont = SmallMyFont;
 			SetTextColor(30,38,43);
 			MyMessage = ReloadMessage;
 			++AmmoCounterScrTex.Revision;
 		}
 	}
-	else if( OldValue!=AmmoAmount(0)*100+MagAmmoRemaining )
+	else if( RenderedValue != CurValue )
 	{
-		OldValue = AmmoAmount(0)*100+MagAmmoRemaining;
+		RenderedValue = CurValue;
 		MyFont = SmallMyFont;
 
 		//if ((MagAmmoRemaining ) <= (MagCapacity/2))
 		//	SetTextColor(32,60,77);
-		if ( MagAmmoRemaining < 30 )
+		if ( MagAmmoRemaining < 10 || AltMagAmmoRemaining < 30 )
 			SetTextColor(224,44,56);
 		else
 			SetTextColor(30,38,43);
-		MyMessage = MagAmmoRemaining$" / " $ min(999, (AmmoAmount(0) - MagAmmoRemaining));
+		MyMessage = MagAmmoRemaining $ " / " $ AltMagAmmoRemaining;
 		++AmmoCounterScrTex.Revision;
         // glowstage
-        GlowStage(MagAmmoRemaining/15 + 1);
+        if ( AltMagAmmoRemaining == 0 )
+            GlowOff();
+        else
+            GlowStage(AltMagAmmoRemaining/15 + 1);
 	}
 
 	AmmoCounterScrTex.Client = Self;
@@ -139,7 +155,12 @@ simulated function bool ConsumeAmmo( int Mode, float Load, optional bool bAmount
             if ( MagAmmoRemaining < 0 )
                 MagAmmoRemaining = 0;
         }
-        if ( MagAmmoRemaining == 0 )
+		else if ( Load > 0 && Mode == 1 ) {
+			AltMagAmmoRemaining -= Load;
+            if ( AltMagAmmoRemaining < 0 )
+                AltMagAmmoRemaining = 0;
+        }
+        if ( AltMagAmmoRemaining == 0 )
             GlowOff();
 
 		NetUpdateTime = Level.TimeSeconds - 1;
@@ -225,7 +246,7 @@ simulated function Fire(float F)
 
 simulated function AltFire(float F)
 {
-	if( MagAmmoRemaining < FireMode[1].AmmoPerFire && !bIsReloading &&
+	if( AltMagAmmoRemaining < FireMode[1].AmmoPerFire && !bIsReloading &&
 		 FireMode[1].NextFireTime <= Level.TimeSeconds )
 	{
 		// We're dry, ask the server to autoreload
@@ -235,6 +256,65 @@ simulated function AltFire(float F)
 	}
 
 	super.AltFire(F);
+}
+
+simulated function bool AllowReload()
+{
+    if ( bIsReloading )
+        return false;
+
+	UpdateMagCapacity(Instigator.PlayerReplicationInfo);
+    if ( (MagAmmoRemaining >= MagCapacity || AmmoAmount(0) <= MagAmmoRemaining)
+            && (AltMagAmmoRemaining >= AltMagCapacity || AmmoAmount(1) <= AltMagAmmoRemaining) )
+        return false;
+
+	if ( KFInvasionBot(Instigator.Controller) != none || KFFriendlyAI(Instigator.Controller) != none )
+        return true;
+
+	return !FireMode[0].IsFiring() && !FireMode[1].IsFiring()
+            && ClientState != WS_BringUp
+            && Level.TimeSeconds > FireMode[0].NextFireTime + 0.1
+            && Level.TimeSeconds > FireMode[1].NextFireTime + 0.1;
+}
+
+simulated function UpdateMagCapacity(PlayerReplicationInfo PRI)
+{
+    local float bonus;
+
+    bonus = 1.0;
+	if ( KFPlayerReplicationInfo(PRI) != none && KFPlayerReplicationInfo(PRI).ClientVeteranSkill != none )
+	{
+		bonus = KFPlayerReplicationInfo(PRI).ClientVeteranSkill.Static.GetMagCapacityMod(KFPlayerReplicationInfo(PRI), self);
+	}
+    MagCapacity = default.MagCapacity * bonus;
+    AltMagCapacity = default.AltMagCapacity * bonus;
+}
+
+simulated function WeaponTick(float dt)
+{
+    if ( Role == ROLE_Authority && bIsReloading && (Level.TimeSeconds - ReloadTimer) >= ReloadRate ) {
+        AddReloadedAmmo();
+        ActuallyFinishReloading();
+    }
+    super.WeaponTick(dt);
+}
+
+function AddReloadedAmmo()
+{
+	UpdateMagCapacity(Instigator.PlayerReplicationInfo);
+    MagAmmoRemaining = min(MagCapacity, AmmoAmount(0));
+    AltMagAmmoRemaining = min(AltMagCapacity, AmmoAmount(1));
+
+	if( !bHoldToReload )
+	{
+        ClientForceAmmoUpdate(0, AmmoAmount(0));
+        ClientForceAmmoUpdate(1, AmmoAmount(1));
+	}
+
+	if ( PlayerController(Instigator.Controller) != none && KFSteamStatsAndAchievements(PlayerController(Instigator.Controller).SteamStatsAndAchievements) != none )
+	{
+		KFSteamStatsAndAchievements(PlayerController(Instigator.Controller).SteamStatsAndAchievements).OnWeaponReloaded();
+	}
 }
 
 simulated function ClientFinishReloading()
@@ -249,6 +329,22 @@ simulated function ClientFinishReloading()
 
 	if(Instigator.PendingWeapon != none && Instigator.PendingWeapon != self)
 		Instigator.Controller.ClientSwitchToBestWeapon();
+}
+
+function GiveTo( pawn Other, optional Pickup Pickup )
+{
+	UpdateMagCapacity(Other.PlayerReplicationInfo);
+
+	if ( KFWeaponPickup(Pickup)!=None && Pickup.bDropped ) {
+		MagAmmoRemaining = Clamp(KFWeaponPickup(Pickup).MagAmmoRemaining, 0, MagCapacity);
+		AltMagAmmoRemaining = Clamp(FreezerPickup(Pickup).AltMagAmmoRemaining, 0, AltMagCapacity);
+	}
+	else {
+		MagAmmoRemaining = MagCapacity;
+		AltMagAmmoRemaining = AltMagCapacity;
+    }
+
+	Super(Weapon).GiveTo(Other,Pickup);
 }
 
 simulated function GlowOn()
@@ -297,7 +393,11 @@ defaultproperties
     ReloadMessage="REL"
     EmptyMessage="---"
 
-    MagCapacity=90
+    MagCapacity=30
+    bHasSecondaryAmmo=True
+    bReduceMagAmmoOnSecondaryFire=False
+    AltMagCapacity=90
+
     ReloadRate=3.600000
     ReloadAnim="Reload"
     ReloadAnimRate=1.000000
@@ -315,12 +415,12 @@ defaultproperties
     FireModeClass(0)=Class'ScrnHTec.FreezerFire'
     FireModeClass(1)=Class'ScrnHTec.FreezerAltFire'
     PutDownAnim="PutDown"
-    
+
     SelectForce="SwitchToAssaultRifle"
     AIRating=0.550000
     CurrentRating=0.550000
     bShowChargingBar=True
-     Description="Cryo Mass Driver v014.SE002 or simply a 'Freezer Gun' is developed to ... blah blah glah ... freeze zeds"
+    Description="Cryo Mass Driver v014 or simply a 'Freezer Gun' is developed to ... blah blah blah ... freeze zeds"
     EffectOffset=(X=100.000000,Y=25.000000,Z=-10.000000)
     DisplayFOV=65.000000
     Priority=150

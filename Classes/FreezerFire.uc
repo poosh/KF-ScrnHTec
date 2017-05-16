@@ -53,8 +53,8 @@ defaultproperties
      FireAnimRate=1.200000
      TweenTime=0.001500
      FireRate=0.150000
-     AmmoClass=Class'ScrnHTec.FreezerAmmo'
-     AmmoPerFire=3
+     AmmoClass=Class'ScrnHTec.FreezerDartAmmo'
+     AmmoPerFire=1
      ShakeRotMag=(X=50.000000,Y=50.000000,Z=350.000000)
      ShakeRotRate=(X=5000.000000,Y=5000.000000,Z=5000.000000)
      ShakeRotTime=0.750000

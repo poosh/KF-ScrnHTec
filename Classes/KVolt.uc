@@ -19,10 +19,10 @@ exec function ReloadMeNow()
 {
 	if(!AllowReload())
 		return;
-		
+
 	if ( ThirdPersonActor != none && Level.NetMode != NM_DedicatedServer )
 			KVoltAttachment(ThirdPersonActor).PlayReload();
-			
+
 	super.ReloadMeNow();
 }
 
@@ -77,7 +77,7 @@ defaultproperties
      ReloadAnim="Reload"
      ReloadAnimRate=1.000000
      WeaponReloadAnim="Reload_Kriss"
-     Weight=4
+     Weight=3
      bHasAimingMode=True
      IdleAimAnim="Idle_Iron"
      StandardDisplayFOV=70.000000
