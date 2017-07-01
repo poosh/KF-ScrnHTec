@@ -211,5 +211,5 @@ defaultproperties
 {
     ShatterProjClass=class'ScrnHTec.SirenDart'
     MenuName="Cryo Siren"
-    ScreamDamage=7 // lowered scream damage to compensate fixed vortex pull
+    ScreamDamage=6 // lowered scream damage to compensate fixed vortex pull
 }
