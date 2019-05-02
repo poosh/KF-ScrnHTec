@@ -163,7 +163,7 @@ defaultproperties
     OnHUDIcon=Texture'ScrnTex.Perks.HTec'
     OnHUDGoldIcon=Texture'ScrnTex.Perks.HTec_Gold'
     OnHUDIcons(0)=(PerkIcon=Texture'ScrnTex.Perks.HTec_Gray',StarIcon=Texture'ScrnTex.Perks.Hud_Perk_Star_Gray',DrawColor=(B=255,G=255,R=255,A=255))
-    OnHUDIcons(1)=(PerkIcon=Texture'ScrnTex.Perks.HTec_Gold',StarIcon=Texture'KillingFloor2HUD.Perk_Icons.Hud_Perk_Star_Gold',DrawColor=(B=255,G=255,R=255,A=255))
+    OnHUDIcons(1)=(PerkIcon=Texture'ScrnTex.Perks.HTec_Gold',StarIcon=Texture'ScrnTex.Perks.Hud_Perk_Star_Gold',DrawColor=(B=255,G=255,R=255,A=255))
     OnHUDIcons(2)=(PerkIcon=Texture'ScrnTex.Perks.HTec_Green',StarIcon=Texture'ScrnTex.Perks.Hud_Perk_Star_Green',DrawColor=(B=255,G=255,R=255,A=255))
     OnHUDIcons(3)=(PerkIcon=Texture'ScrnTex.Perks.HTec_Blue',StarIcon=Texture'ScrnTex.Perks.Hud_Perk_Star_Blue',DrawColor=(B=255,G=255,R=255,A=255))
     OnHUDIcons(4)=(PerkIcon=Texture'ScrnTex.Perks.HTec_Purple',StarIcon=Texture'ScrnTex.Perks.Hud_Perk_Star_Purple',DrawColor=(B=255,G=255,R=255,A=255))
