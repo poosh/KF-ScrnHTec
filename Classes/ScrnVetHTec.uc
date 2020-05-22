@@ -156,7 +156,7 @@ defaultproperties
     progressArray0(5)=10500
     progressArray0(6)=16500
 
-    SkillInfo="PERK SKILLS (HTec v4.00):|Cryo Grenades|Higher frozen dosh value|Armor does not slow you down|60% less damage from Bloat Bile and Siren Scream while Armor > 100"
+    SkillInfo="PERK SKILLS (HTec v4.01):|Cryo Grenades|Higher frozen dosh value|Armor does not slow you down|60% less damage from Bloat Bile and Siren Scream while Armor > 100"
     CustomLevelInfo="PERK BONUSES (LEVEL %L):|%x more damage with ZED/Cryo Guns|%x faster freezing|%m larger ZED Gun clips|%a more ZED/Cryo Ammo|+%g extra Cryo grenades|%$ discount on HTec Inventory"
 
     PerkIndex=11
