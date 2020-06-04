@@ -2,112 +2,112 @@ class CryoThrower extends KFWeapon;
 
 simulated function bool StartFire(int Mode)
 {
-	if( Mode == 1 )
-		return super.StartFire(Mode);
+    if( Mode == 1 )
+        return super.StartFire(Mode);
 
-	if( !super.StartFire(Mode) )  // returns false when mag is empty
-	   return false;
+    if( !super.StartFire(Mode) )  // returns false when mag is empty
+       return false;
 
-	if( AmmoAmount(0) <= 0 )
-	{
-    	return false;
+    if( AmmoAmount(0) <= 0 )
+    {
+        return false;
     }
 
-	AnimStopLooping();
+    AnimStopLooping();
 
-	if( !FireMode[Mode].IsInState('FireLoop') && (AmmoAmount(0) > 0) )
-	{
-		FireMode[Mode].StartFiring();
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+    if( !FireMode[Mode].IsInState('FireLoop') && (AmmoAmount(0) > 0) )
+    {
+        FireMode[Mode].StartFiring();
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 
-	return true;
+    return true;
 }
 
 // Allow this weapon to auto reload on alt fire
 simulated function AltFire(float F)
 {
-	if( MagAmmoRemaining <  FireMode[1].AmmoPerFire && !bIsReloading &&
-		 FireMode[1].NextFireTime <= Level.TimeSeconds )
-	{
-		// We're dry, ask the server to autoreload
-		ServerRequestAutoReload();
+    if( MagAmmoRemaining <  FireMode[1].AmmoPerFire && !bIsReloading &&
+         FireMode[1].NextFireTime <= Level.TimeSeconds )
+    {
+        // We're dry, ask the server to autoreload
+        ServerRequestAutoReload();
 
-		PlayOwnedSound(FireMode[1].NoAmmoSound,SLOT_None,2.0,,,,false);
-	}
+        PlayOwnedSound(FireMode[1].NoAmmoSound,SLOT_None,2.0,,,,false);
+    }
 
-	super.AltFire(F);
+    super.AltFire(F);
 }
 
 simulated function AnimEnd(int channel)
 {
-	if(!FireMode[0].IsInState('FireLoop'))
-	{
-	  	Super.AnimEnd(channel);
-	}
+    if(!FireMode[0].IsInState('FireLoop'))
+    {
+          Super.AnimEnd(channel);
+    }
 }
 
 function bool RecommendRangedAttack()
 {
-	return true;
+    return true;
 }
 
 function float SuggestAttackStyle()
 {
-	return -1.0;
+    return -1.0;
 }
 
 //TODO: LONG ranged?
 function bool RecommendLongRangedAttack()
 {
-	return true;
+    return true;
 }
 
 simulated function bool ConsumeAmmo( int Mode, float Load, optional bool bAmountNeededIsMax )
 {
-	local Inventory Inv;
-	local bool bOutOfAmmo;
-	local KFWeapon KFWeap;
+    local Inventory Inv;
+    local bool bOutOfAmmo;
+    local KFWeapon KFWeap;
 
-	if ( Super(Weapon).ConsumeAmmo(Mode, Load, bAmountNeededIsMax) )
-	{
-		if ( Load > 0 && (Mode == 0 || bReduceMagAmmoOnSecondaryFire) )
-			MagAmmoRemaining -= Load;
+    if ( Super(Weapon).ConsumeAmmo(Mode, Load, bAmountNeededIsMax) )
+    {
+        if ( Load > 0 && (Mode == 0 || bReduceMagAmmoOnSecondaryFire) )
+            MagAmmoRemaining -= Load;
 
-		NetUpdateTime = Level.TimeSeconds - 1;
+        NetUpdateTime = Level.TimeSeconds - 1;
 
-		if ( FireMode[Mode].AmmoPerFire > 0 && InventoryGroup > 0 && !bMeleeWeapon && bConsumesPhysicalAmmo &&
-			 (Ammo[0] == none || FireMode[0] == none || FireMode[0].AmmoPerFire <= 0 || Ammo[0].AmmoAmount < FireMode[0].AmmoPerFire) &&
-			 (Ammo[1] == none || FireMode[1] == none || FireMode[1].AmmoPerFire <= 0 || Ammo[1].AmmoAmount < FireMode[1].AmmoPerFire) )
-		{
-			bOutOfAmmo = true;
+        if ( FireMode[Mode].AmmoPerFire > 0 && InventoryGroup > 0 && !bMeleeWeapon && bConsumesPhysicalAmmo &&
+             (Ammo[0] == none || FireMode[0] == none || FireMode[0].AmmoPerFire <= 0 || Ammo[0].AmmoAmount < FireMode[0].AmmoPerFire) &&
+             (Ammo[1] == none || FireMode[1] == none || FireMode[1].AmmoPerFire <= 0 || Ammo[1].AmmoAmount < FireMode[1].AmmoPerFire) )
+        {
+            bOutOfAmmo = true;
 
-			for ( Inv = Instigator.Inventory; Inv != none; Inv = Inv.Inventory )
-			{
-				KFWeap = KFWeapon(Inv);
+            for ( Inv = Instigator.Inventory; Inv != none; Inv = Inv.Inventory )
+            {
+                KFWeap = KFWeapon(Inv);
 
-				if ( Inv.InventoryGroup > 0 && KFWeap != none && !KFWeap.bMeleeWeapon && KFWeap.bConsumesPhysicalAmmo &&
-					 ((KFWeap.Ammo[0] != none && KFWeap.FireMode[0] != none && KFWeap.FireMode[0].AmmoPerFire > 0 &&KFWeap.Ammo[0].AmmoAmount >= KFWeap.FireMode[0].AmmoPerFire) ||
-					 (KFWeap.Ammo[1] != none && KFWeap.FireMode[1] != none && KFWeap.FireMode[1].AmmoPerFire > 0 && KFWeap.Ammo[1].AmmoAmount >= KFWeap.FireMode[1].AmmoPerFire)) )
-				{
-					bOutOfAmmo = false;
-					break;
-				}
-			}
+                if ( Inv.InventoryGroup > 0 && KFWeap != none && !KFWeap.bMeleeWeapon && KFWeap.bConsumesPhysicalAmmo &&
+                     ((KFWeap.Ammo[0] != none && KFWeap.FireMode[0] != none && KFWeap.FireMode[0].AmmoPerFire > 0 &&KFWeap.Ammo[0].AmmoAmount >= KFWeap.FireMode[0].AmmoPerFire) ||
+                     (KFWeap.Ammo[1] != none && KFWeap.FireMode[1] != none && KFWeap.FireMode[1].AmmoPerFire > 0 && KFWeap.Ammo[1].AmmoAmount >= KFWeap.FireMode[1].AmmoPerFire)) )
+                {
+                    bOutOfAmmo = false;
+                    break;
+                }
+            }
 
-			if ( bOutOfAmmo )
-			{
-				PlayerController(Instigator.Controller).Speech('AUTO', 3, "");
-			}
-		}
+            if ( bOutOfAmmo )
+            {
+                PlayerController(Instigator.Controller).Speech('AUTO', 3, "");
+            }
+        }
 
-		return true;
-	}
-	return false;
+        return true;
+    }
+    return false;
 }
 
 // exec function ProjX(float value)

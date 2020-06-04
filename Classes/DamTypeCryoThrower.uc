@@ -1,5 +1,5 @@
 class DamTypeCryoThrower extends DamTypeFreezerBase
-	abstract;
+    abstract;
 
 defaultproperties
 {

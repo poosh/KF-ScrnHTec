@@ -84,7 +84,7 @@ defaultproperties
          StartSpinRange=(X=(Min=-0.300000,Max=0.300000))
          SizeScale(0)=(RelativeSize=0.400000)
          SizeScale(1)=(RelativeTime=1.000000,RelativeSize=1.000000)
-   	 StartSizeRange=(X=(Min=45.000000),Y=(Min=45.000000),Z=(Min=45.000000))
+        StartSizeRange=(X=(Min=45.000000),Y=(Min=45.000000),Z=(Min=45.000000))
          DrawStyle=PTDS_AlphaBlend
          Texture=Texture'HTec_A.fx.Dart_Muzzle-1'
          TextureUSubdivisions=1

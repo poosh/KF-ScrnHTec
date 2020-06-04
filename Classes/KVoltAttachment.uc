@@ -28,12 +28,12 @@ simulated function PlayReload()
 
 simulated function Notify_3rd_HideMag()
 {
-	SetBoneScale(0,0.0,'kvolt_mag');
+    SetBoneScale(0,0.0,'kvolt_mag');
 }
 
 simulated function Notify_3rd_ShowMag()
 {
-	SetBoneScale(0,1.0,'kvolt_mag');
+    SetBoneScale(0,1.0,'kvolt_mag');
 }
 
 defaultproperties

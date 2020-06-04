@@ -1,5 +1,5 @@
 class DamTypeFreezerNoDmgBonus extends DamTypeFreezerBase
-	abstract;
+    abstract;
  
     
 defaultproperties

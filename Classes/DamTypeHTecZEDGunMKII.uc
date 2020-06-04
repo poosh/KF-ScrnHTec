@@ -1,5 +1,5 @@
 class DamTypeHTecZEDGunMKII extends DamTypeZEDGunMKII
-	abstract;
+    abstract;
 
 static function AwardKill(KFSteamStatsAndAchievements KFStatsAndAchievements, KFPlayerController Killer, KFMonster Killed )
 {

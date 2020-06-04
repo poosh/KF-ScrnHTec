@@ -4,8 +4,8 @@ var() array<Sound> ImpactSounds;
 
 simulated function PostBeginPlay()
 {
-	if( ImpactSounds.Length>0 )
-		PlaySound(ImpactSounds[Rand(ImpactSounds.Length)]);
+    if( ImpactSounds.Length>0 )
+        PlaySound(ImpactSounds[Rand(ImpactSounds.Length)]);
 }
 
 defaultproperties

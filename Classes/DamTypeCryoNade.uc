@@ -1,5 +1,5 @@
 class DamTypeCryoNade extends DamTypeFreezerBase
-	abstract;
+    abstract;
 
 defaultproperties
 {

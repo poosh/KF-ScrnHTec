@@ -1,5 +1,5 @@
 class DamTypeFreezerNitro extends DamTypeFreezerBase
-	abstract;
+    abstract;
 
 defaultproperties
 {

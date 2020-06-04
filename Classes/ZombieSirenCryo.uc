@@ -57,74 +57,74 @@ function bool ShouldDoShatterScream(Actor A)
 
 function RangedAttack(Actor A)
 {
-	local int LastFireTime;
-	local float Dist;
+    local int LastFireTime;
+    local float Dist;
 
-	if ( bShotAnim )
-		return;
+    if ( bShotAnim )
+        return;
 
     Dist = VSize(A.Location - Location);
 
-	if ( Physics == PHYS_Swimming )
-	{
-		SetAnimAction('Claw');
-		bShotAnim = true;
-		LastFireTime = Level.TimeSeconds;
-	}
-	else if ( Dist < MeleeRange + CollisionRadius + A.CollisionRadius
+    if ( Physics == PHYS_Swimming )
+    {
+        SetAnimAction('Claw');
+        bShotAnim = true;
+        LastFireTime = Level.TimeSeconds;
+    }
+    else if ( Dist < MeleeRange + CollisionRadius + A.CollisionRadius
             && (bDecapitated || bZapped || Level.TimeSeconds - LastScreamTime < 7) )
-	{
-		bShotAnim = true;
-		LastFireTime = Level.TimeSeconds;
-		SetAnimAction('Claw');
-		//PlaySound(sound'Claw2s', SLOT_Interact); KFTODO: Replace this
-		Controller.bPreparingMove = true;
-		Acceleration = vect(0,0,0);
-	}
-	else if( Dist <= ScreamRadius && !bDecapitated && !bZapped
+    {
+        bShotAnim = true;
+        LastFireTime = Level.TimeSeconds;
+        SetAnimAction('Claw');
+        //PlaySound(sound'Claw2s', SLOT_Interact); KFTODO: Replace this
+        Controller.bPreparingMove = true;
+        Acceleration = vect(0,0,0);
+    }
+    else if( Dist <= ScreamRadius && !bDecapitated && !bZapped
             || (Level.TimeSeconds > NextFrozenCheckTime && ShouldDoShatterScream(A)) )
-	{
+    {
         LastScreamTime = Level.TimeSeconds;
-		bShotAnim=true;
-		SetAnimAction('Siren_Scream');
-		// Only stop moving if we are close
-		if( Dist < ScreamRadius * 0.25 )
-		{
-    		Controller.bPreparingMove = true;
-    		Acceleration = vect(0,0,0);
+        bShotAnim=true;
+        SetAnimAction('Siren_Scream');
+        // Only stop moving if we are close
+        if( Dist < ScreamRadius * 0.25 )
+        {
+            Controller.bPreparingMove = true;
+            Acceleration = vect(0,0,0);
         }
         else
         {
             Acceleration = AccelRate * Normal(A.Location - Location);
         }
-	}
+    }
 }
 
 // overridden to shatter zeds
 // fixed instigator in calling TakeDamage()
 simulated function HurtRadius( float DamageAmount, float DamageRadius, class<DamageType> DamageType, float Momentum, vector HitLocation )
 {
-	local actor Victims;
+    local actor Victims;
     local KFMonster M;
-	local float damageScale, dist;
-	local vector dir;
-	local float UsedDamageAmount;
+    local float damageScale, dist;
+    local vector dir;
+    local float UsedDamageAmount;
 
 
-	if( bHurtEntry )
-		return;
+    if( bHurtEntry )
+        return;
 
-	bHurtEntry = true;
-	foreach VisibleCollidingActors( class 'Actor', Victims, DamageRadius, HitLocation )
-	{
-		// don't let blast damage affect fluid - VisibleCollisingActors doesn't really work for them - jag
-		// Or Karma actors in this case. Self inflicted Death due to flying chairs is uncool for a zombie of your stature.
-		if( (Victims != self) && !Victims.IsA('FluidSurfaceInfo') && !Victims.IsA('ExtendedZCollision') )
-		{
+    bHurtEntry = true;
+    foreach VisibleCollidingActors( class 'Actor', Victims, DamageRadius, HitLocation )
+    {
+        // don't let blast damage affect fluid - VisibleCollisingActors doesn't really work for them - jag
+        // Or Karma actors in this case. Self inflicted Death due to flying chairs is uncool for a zombie of your stature.
+        if( (Victims != self) && !Victims.IsA('FluidSurfaceInfo') && !Victims.IsA('ExtendedZCollision') )
+        {
             Momentum = ScreamForce; // bugfix, when pull wasn't applied always  -- PooSH
-			dir = Victims.Location - HitLocation;
-			dist = FMax(1,VSize(dir));
-			dir = dir/dist;
+            dir = Victims.Location - HitLocation;
+            dist = FMax(1,VSize(dir));
+            dir = dir/dist;
 
             M = KFMonster(Victims);
             if ( M != none ) {
@@ -147,13 +147,13 @@ simulated function HurtRadius( float DamageAmount, float DamageRadius, class<Dam
                     UsedDamageAmount = DamageAmount;
             }
 
-			Victims.TakeDamage(damageScale * UsedDamageAmount, self, Victims.Location - 0.5 * (Victims.CollisionHeight + Victims.CollisionRadius) * dir,(damageScale * Momentum * dir),DamageType);
+            Victims.TakeDamage(damageScale * UsedDamageAmount, self, Victims.Location - 0.5 * (Victims.CollisionHeight + Victims.CollisionRadius) * dir,(damageScale * Momentum * dir),DamageType);
 
             if ( Vehicle(Victims) != None && Vehicle(Victims).Health > 0)
-				Vehicle(Victims).DriverRadiusDamage(UsedDamageAmount, DamageRadius, Controller, DamageType, Momentum, HitLocation);
-		}
-	}
-	bHurtEntry = false;
+                Vehicle(Victims).DriverRadiusDamage(UsedDamageAmount, DamageRadius, Controller, DamageType, Momentum, HitLocation);
+        }
+    }
+    bHurtEntry = false;
 }
 
 // turns frozen monster into deadly ice shards

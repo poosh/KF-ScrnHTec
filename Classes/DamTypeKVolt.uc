@@ -1,5 +1,5 @@
 class DamTypeKVolt extends DamTypeFreezerBase
-	abstract;
+    abstract;
 
 defaultproperties
 {

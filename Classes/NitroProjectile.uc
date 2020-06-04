@@ -7,175 +7,175 @@ var Emitter Trail1, Trail2;
 
 simulated function PostBeginPlay()
 {
-	SetTimer(0.2, true);
+    SetTimer(0.2, true);
 
-	Velocity = Speed * Vector(Rotation);
+    Velocity = Speed * Vector(Rotation);
 
-	if ( Level.NetMode != NM_DedicatedServer )
-	{
-		if ( !PhysicsVolume.bWaterVolume )
-		{
-			Trail1 = Spawn(Trail1Class,self);
-			Trail2 = Spawn(Trail2Class,self);
-		}
-	}
+    if ( Level.NetMode != NM_DedicatedServer )
+    {
+        if ( !PhysicsVolume.bWaterVolume )
+        {
+            Trail1 = Spawn(Trail1Class,self);
+            Trail2 = Spawn(Trail2Class,self);
+        }
+    }
 
-	Velocity.z += TossZ;
+    Velocity.z += TossZ;
 }
 
 simulated function PostNetBeginPlay()
 {
-	local PlayerController PC;
+    local PlayerController PC;
 
-	Super.PostNetBeginPlay();
+    Super.PostNetBeginPlay();
 
-	if ( Level.NetMode == NM_DedicatedServer )
-	{
-		return;
-	}
+    if ( Level.NetMode == NM_DedicatedServer )
+    {
+        return;
+    }
 
-	if ( Level.bDropDetail || (Level.DetailMode == DM_Low) )
-	{
-		bDynamicLight = false;
-		LightType = LT_None;
-	}
-	else
-	{
-		PC = Level.GetLocalPlayerController();
-		if ( (Instigator != None) && (PC == Instigator.Controller) )
-		{
-			return;
-		}
+    if ( Level.bDropDetail || (Level.DetailMode == DM_Low) )
+    {
+        bDynamicLight = false;
+        LightType = LT_None;
+    }
+    else
+    {
+        PC = Level.GetLocalPlayerController();
+        if ( (Instigator != None) && (PC == Instigator.Controller) )
+        {
+            return;
+        }
 
-		if ( (PC == None) || (PC.ViewTarget == None) || (VSize(PC.ViewTarget.Location - Location) > 3000) )
-		{
-			bDynamicLight = false;
-			LightType = LT_None;
-		}
-	}
+        if ( (PC == None) || (PC.ViewTarget == None) || (VSize(PC.ViewTarget.Location - Location) > 3000) )
+        {
+            bDynamicLight = false;
+            LightType = LT_None;
+        }
+    }
 }
 
 simulated function Landed( vector HitNormal )
 {
-	Explode(Location,HitNormal);
+    Explode(Location,HitNormal);
     if ( Level.DetailMode >= DM_High )
         Spawn(class'NitroGroundEffect',self,,Location);    
 }
 
 simulated function Explode(vector HitLocation,vector HitNormal)
 {
-	if ( Role == ROLE_Authority )
-	{
-		HurtRadius(Damage, DamageRadius, MyDamageType, MomentumTransfer, HitLocation );
-	}
+    if ( Role == ROLE_Authority )
+    {
+        HurtRadius(Damage, DamageRadius, MyDamageType, MomentumTransfer, HitLocation );
+    }
 
     PlaySound(ImpactSound, SLOT_Misc);
 
-	if ( KFHumanPawn(Instigator) != none && !Level.bDropDetail ) {
-		if ( EffectIsRelevant(Location,false) ) {
-			Spawn(ExplosionDecal,self,,Location, rotator(-HitNormal));
+    if ( KFHumanPawn(Instigator) != none && !Level.bDropDetail ) {
+        if ( EffectIsRelevant(Location,false) ) {
+            Spawn(ExplosionDecal,self,,Location, rotator(-HitNormal));
             if ( Level.DetailMode > DM_Low ) {
                 Spawn(class'NitroSplash',self,,HitLocation,rotator(HitNormal));
                 if ( Level.DetailMode >= DM_SuperHigh )
                     Spawn(class'NitroImpact',self,,HitLocation,rotator(-HitNormal));
             }
-		}
-	}
+        }
+    }
 
-	SetCollisionSize(0.0, 0.0);
-	Destroy();
+    SetCollisionSize(0.0, 0.0);
+    Destroy();
 }
 
 // overrided to don't damage projectiles
 simulated function HurtRadius( float DamageAmount, float DamageRadius, class<DamageType> DamageType, float Momentum, vector HitLocation )
 {
-	local actor Victims;
-	local float damageScale, dist;
-	local vector dir;
+    local actor Victims;
+    local float damageScale, dist;
+    local vector dir;
 
-	if ( bHurtEntry )
-		return;
+    if ( bHurtEntry )
+        return;
 
-	bHurtEntry = true;
-	foreach VisibleCollidingActors( class 'Actor', Victims, DamageRadius, HitLocation )
-	{
-		// don't let blast damage affect fluid - VisibleCollisingActors doesn't really work for them - jag
-		if( (Victims != self) && (Hurtwall != Victims) && (Victims.Role == ROLE_Authority) 
+    bHurtEntry = true;
+    foreach VisibleCollidingActors( class 'Actor', Victims, DamageRadius, HitLocation )
+    {
+        // don't let blast damage affect fluid - VisibleCollisingActors doesn't really work for them - jag
+        if( (Victims != self) && (Hurtwall != Victims) && (Victims.Role == ROLE_Authority) 
                 && !Victims.IsA('FluidSurfaceInfo') && !Victims.IsA('Projectile') )
-		{
-			dir = Victims.Location - HitLocation;
-			dist = FMax(1,VSize(dir));
-			dir = dir/dist;
-			damageScale = 1 - FMax(0,(dist - Victims.CollisionRadius)/DamageRadius);
-			if ( Instigator == None || Instigator.Controller == None )
-				Victims.SetDelayedDamageInstigatorController( InstigatorController );
-			if ( Victims == LastTouched )
-				LastTouched = None;
-			Victims.TakeDamage
-			(
-				damageScale * DamageAmount,
-				Instigator,
-				Victims.Location - 0.5 * (Victims.CollisionHeight + Victims.CollisionRadius) * dir,
-				(damageScale * Momentum * dir),
-				DamageType
-			);
-			if (Vehicle(Victims) != None && Vehicle(Victims).Health > 0)
-				Vehicle(Victims).DriverRadiusDamage(DamageAmount, DamageRadius, InstigatorController, DamageType, Momentum, HitLocation);
+        {
+            dir = Victims.Location - HitLocation;
+            dist = FMax(1,VSize(dir));
+            dir = dir/dist;
+            damageScale = 1 - FMax(0,(dist - Victims.CollisionRadius)/DamageRadius);
+            if ( Instigator == None || Instigator.Controller == None )
+                Victims.SetDelayedDamageInstigatorController( InstigatorController );
+            if ( Victims == LastTouched )
+                LastTouched = None;
+            Victims.TakeDamage
+            (
+                damageScale * DamageAmount,
+                Instigator,
+                Victims.Location - 0.5 * (Victims.CollisionHeight + Victims.CollisionRadius) * dir,
+                (damageScale * Momentum * dir),
+                DamageType
+            );
+            if (Vehicle(Victims) != None && Vehicle(Victims).Health > 0)
+                Vehicle(Victims).DriverRadiusDamage(DamageAmount, DamageRadius, InstigatorController, DamageType, Momentum, HitLocation);
 
-		}
-	}
-	if ( (LastTouched != None) && (LastTouched != self) && (LastTouched.Role == ROLE_Authority) 
+        }
+    }
+    if ( (LastTouched != None) && (LastTouched != self) && (LastTouched.Role == ROLE_Authority) 
         && !LastTouched.IsA('FluidSurfaceInfo') && !Victims.IsA('Projectile') )
-	{
-		Victims = LastTouched;
-		LastTouched = None;
-		dir = Victims.Location - HitLocation;
-		dist = FMax(1,VSize(dir));
-		dir = dir/dist;
-		damageScale = FMax(Victims.CollisionRadius/(Victims.CollisionRadius + Victims.CollisionHeight),1 - FMax(0,(dist - Victims.CollisionRadius)/DamageRadius));
-		if ( Instigator == None || Instigator.Controller == None )
-			Victims.SetDelayedDamageInstigatorController(InstigatorController);
-		Victims.TakeDamage
-		(
-			damageScale * DamageAmount,
-			Instigator,
-			Victims.Location - 0.5 * (Victims.CollisionHeight + Victims.CollisionRadius) * dir,
-			(damageScale * Momentum * dir),
-			DamageType
-		);
-		if (Vehicle(Victims) != None && Vehicle(Victims).Health > 0)
-			Vehicle(Victims).DriverRadiusDamage(DamageAmount, DamageRadius, InstigatorController, DamageType, Momentum, HitLocation);
-	}
+    {
+        Victims = LastTouched;
+        LastTouched = None;
+        dir = Victims.Location - HitLocation;
+        dist = FMax(1,VSize(dir));
+        dir = dir/dist;
+        damageScale = FMax(Victims.CollisionRadius/(Victims.CollisionRadius + Victims.CollisionHeight),1 - FMax(0,(dist - Victims.CollisionRadius)/DamageRadius));
+        if ( Instigator == None || Instigator.Controller == None )
+            Victims.SetDelayedDamageInstigatorController(InstigatorController);
+        Victims.TakeDamage
+        (
+            damageScale * DamageAmount,
+            Instigator,
+            Victims.Location - 0.5 * (Victims.CollisionHeight + Victims.CollisionRadius) * dir,
+            (damageScale * Momentum * dir),
+            DamageType
+        );
+        if (Vehicle(Victims) != None && Vehicle(Victims).Health > 0)
+            Vehicle(Victims).DriverRadiusDamage(DamageAmount, DamageRadius, InstigatorController, DamageType, Momentum, HitLocation);
+    }
 
-	bHurtEntry = false;
+    bHurtEntry = false;
 }
 
 simulated function Destroyed()
 {
-	if ( Trail != none ) {
-		Trail.mRegen=False;
-		Trail.SetPhysics(PHYS_None);
-	}
+    if ( Trail != none ) {
+        Trail.mRegen=False;
+        Trail.SetPhysics(PHYS_None);
+    }
     
-	if ( Trail1 != none ) {
-		Trail1.Kill();
-		Trail1.SetPhysics(PHYS_None);
-	}    
+    if ( Trail1 != none ) {
+        Trail1.Kill();
+        Trail1.SetPhysics(PHYS_None);
+    }    
 
-	if ( Trail2 != none ) {
-		Trail2.Kill();
-		Trail2.SetPhysics(PHYS_None);
-	}
+    if ( Trail2 != none ) {
+        Trail2.Kill();
+        Trail2.SetPhysics(PHYS_None);
+    }
     
-	Super.Destroyed();
+    Super.Destroyed();
 }
 
 simulated function ProcessTouch (Actor Other, vector HitLocation)
 {
-	if ( Other == none || Other == Instigator || Other.Base == Instigator  )
-		return;
+    if ( Other == none || Other == Instigator || Other.Base == Instigator  )
+        return;
 
-	if ( Other != Instigator && !Other.IsA('PhysicsVolume') && !Other.IsA('Projectile') 
+    if ( Other != Instigator && !Other.IsA('PhysicsVolume') && !Other.IsA('Projectile') 
            && !Other.IsA('ROBulletWhipAttachment')  ) 
     {
         // Don't allow hits on people on the same team
@@ -185,43 +185,43 @@ simulated function ProcessTouch (Actor Other, vector HitLocation)
         if ( KFPawn(Other) != none && KFPawn(Other).BurnDown > 1 )
             KFPawn(Other).BurnDown /= 2;
             
-		Explode(self.Location,self.Location);
-	}
+        Explode(self.Location,self.Location);
+    }
 }
 
 simulated singular function HitWall(vector HitNormal, actor Wall)
 {
-	if ( Role == ROLE_Authority )
-	{
-		if ( !Wall.bStatic && !Wall.bWorldGeometry )
-		{
-			if ( Instigator == None || Instigator.Controller == None )
-			{
-				Wall.SetDelayedDamageInstigatorController( InstigatorController );
-			}
+    if ( Role == ROLE_Authority )
+    {
+        if ( !Wall.bStatic && !Wall.bWorldGeometry )
+        {
+            if ( Instigator == None || Instigator.Controller == None )
+            {
+                Wall.SetDelayedDamageInstigatorController( InstigatorController );
+            }
 
-			Wall.TakeDamage( Damage, instigator, Location, MomentumTransfer * Normal(Velocity), MyDamageType);
+            Wall.TakeDamage( Damage, instigator, Location, MomentumTransfer * Normal(Velocity), MyDamageType);
 
-			if ( DamageRadius > 0 && Vehicle(Wall) != None && Vehicle(Wall).Health > 0 )
-			{
-				Vehicle(Wall).DriverRadiusDamage(Damage, DamageRadius, InstigatorController, MyDamageType, MomentumTransfer, Location);
-			}
+            if ( DamageRadius > 0 && Vehicle(Wall) != None && Vehicle(Wall).Health > 0 )
+            {
+                Vehicle(Wall).DriverRadiusDamage(Damage, DamageRadius, InstigatorController, MyDamageType, MomentumTransfer, Location);
+            }
 
-			HurtWall = Wall;
-		}
+            HurtWall = Wall;
+        }
 
-		MakeNoise(1.0);
-	}
+        MakeNoise(1.0);
+    }
 
-	Explode(Location + ExploWallOut * HitNormal, HitNormal);
+    Explode(Location + ExploWallOut * HitNormal, HitNormal);
 
-	HurtWall = None;
+    HurtWall = None;
 }
 
 // simulated function Timer()
 // {
-	// if ( Trail2 != none )
-		// Trail2.SetDrawScale(Trail2.DrawScale * 1.5);
+    // if ( Trail2 != none )
+        // Trail2.SetDrawScale(Trail2.DrawScale * 1.5);
 // }
 
 defaultproperties

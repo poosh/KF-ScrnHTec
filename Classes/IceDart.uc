@@ -5,9 +5,9 @@ var     Emitter    TrailEffect;
 
 simulated function PostBeginPlay()
 {
-	Super(Projectile).PostBeginPlay();
+    Super(Projectile).PostBeginPlay();
 
-	Velocity = Speed * Vector(Rotation); // starts off slower so combo can be done closer
+    Velocity = Speed * Vector(Rotation); // starts off slower so combo can be done closer
 
     if ( Level.NetMode != NM_DedicatedServer )
     {
@@ -25,7 +25,7 @@ simulated function PostBeginPlay()
 
 simulated function Destroyed()
 {
-	if (TrailEffect !=None) {
+    if (TrailEffect !=None) {
         TrailEffect.Kill();
         TrailEffect.SetPhysics(PHYS_NONE);
     }
@@ -35,46 +35,46 @@ simulated function Destroyed()
 simulated function ProcessTouch (Actor Other, vector HitLocation)
 {
     local vector X;
-	local Vector TempHitLocation, HitNormal;
-	local array<int>	HitPoints;
+    local Vector TempHitLocation, HitNormal;
+    local array<int>    HitPoints;
     local KFPawn HitPawn;
 
-	if ( Other == none || Other == Instigator || Other.Base == Instigator || !Other.bBlockHitPointTraces  )
-		return;
+    if ( Other == none || Other == Instigator || Other.Base == Instigator || !Other.bBlockHitPointTraces  )
+        return;
 
     X = Vector(Rotation);
 
- 	if( ROBulletWhipAttachment(Other) != none )
-	{
+     if( ROBulletWhipAttachment(Other) != none )
+    {
         if(!Other.Base.bDeleteMe)
         {
-	        Other = Instigator.HitPointTrace(TempHitLocation, HitNormal, HitLocation + (200 * X), HitPoints, HitLocation,, 1);
+            Other = Instigator.HitPointTrace(TempHitLocation, HitNormal, HitLocation + (200 * X), HitPoints, HitLocation,, 1);
 
-			if( Other == none || HitPoints.Length == 0 )
-				return;
+            if( Other == none || HitPoints.Length == 0 )
+                return;
 
-			HitPawn = KFPawn(Other);
+            HitPawn = KFPawn(Other);
 
             if (Role == ROLE_Authority)
             {
-    	    	if ( HitPawn != none )
-    	    	{
-     				// Hit detection debugging
-    				/*log("Bullet hit "$HitPawn.PlayerReplicationInfo.PlayerName);
-    				HitPawn.HitStart = HitLocation;
-    				HitPawn.HitEnd = HitLocation + (65535 * X);*/
+                if ( HitPawn != none )
+                {
+                     // Hit detection debugging
+                    /*log("Bullet hit "$HitPawn.PlayerReplicationInfo.PlayerName);
+                    HitPawn.HitStart = HitLocation;
+                    HitPawn.HitEnd = HitLocation + (65535 * X);*/
 
                     if( !HitPawn.bDeleteMe )
-                    	HitPawn.ProcessLocationalDamage(Damage, Instigator, TempHitLocation, MomentumTransfer * Normal(Velocity), MyDamageType,HitPoints);
+                        HitPawn.ProcessLocationalDamage(Damage, Instigator, TempHitLocation, MomentumTransfer * Normal(Velocity), MyDamageType,HitPoints);
 
 
                     // Hit detection debugging
-    				//if( Level.NetMode == NM_Standalone)
-    				//	HitPawn.DrawBoneLocation();
-    	    	}
-    		}
-		}
-	}
+                    //if( Level.NetMode == NM_Standalone)
+                    //    HitPawn.DrawBoneLocation();
+                }
+            }
+        }
+    }
     else
     {
         if (Pawn(Other) != none && Pawn(Other).IsHeadShot(HitLocation, X, 1.0))
@@ -87,7 +87,7 @@ simulated function ProcessTouch (Actor Other, vector HitLocation)
         }
     }
     
-	if ( ImpactEffect != None && (Level.NetMode != NM_DedicatedServer) && !Level.bDropDetail && Level.DetailMode > DM_Low )
+    if ( ImpactEffect != None && (Level.NetMode != NM_DedicatedServer) && !Level.bDropDetail && Level.DetailMode > DM_Low )
         Spawn(ImpactEffect,,, Location, rotator(-HitNormal));
 
     // no penetration

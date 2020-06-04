@@ -7,23 +7,23 @@ function GiveCashTo( Pawn Other )
 {
     local SRStatsBase Stats;
     
-	if( Other.Controller!=None && Other.Controller.PlayerReplicationInfo!=none ) {
-		Other.Controller.PlayerReplicationInfo.Score += CashAmount;
+    if( Other.Controller!=None && Other.Controller.PlayerReplicationInfo!=none ) {
+        Other.Controller.PlayerReplicationInfo.Score += CashAmount;
         Stats = SRStatsBase(PlayerController(Other.Controller).SteamStatsAndAchievements);
         if ( Stats != none ) {
             if ( Other.Health < 25 )
                 class'ScrnAchievements'.static.ProgressAchievementByID(Stats.Rep, 'Freeze_DoshSui', CashAmount);
             class'ScrnAchievements'.static.ProgressAchievementByID(Stats.Rep, 'Freeze_Dosh', CashAmount);
         }
-	}
+    }
     if ( DroppedBy != none && DroppedBy == Other.Controller ) {
         if ( HeadDosh == self && NextDosh == none && !bCryoExpertAchFailed )
             class'ScrnAchievements'.static.ProgressAchievementByID(Stats.Rep, 'Freeze_Expert', 1);
     }    
     else if ( HeadDosh != none )
         HeadDosh.bCryoExpertAchFailed = true;
-	AnnouncePickup(Other);
-	Destroy();
+    AnnouncePickup(Other);
+    Destroy();
 }
 
 simulated function Destroyed()

@@ -76,7 +76,7 @@ function AddGameRules(GameRules GR)
 }
 
 function int NetDamage( int OriginalDamage, int Damage, pawn injured, pawn instigatedBy,
-	vector HitLocation, out vector Momentum, class<DamageType> DamageType )
+    vector HitLocation, out vector Momentum, class<DamageType> DamageType )
 {
     local class<KFWeaponDamageType> KFDamType;
     local class<DamTypeFreezerBase> FreezeDT;

@@ -20,7 +20,7 @@ static function float GetWeaponMovementSpeedBonus(KFPlayerReplicationInfo KFPRI,
     if ( Controller(KFPRI.Owner) != none )
         p = ScrnHumanPawn(Controller(KFPRI.Owner).Pawn);
     if ( p != none )
-		return fmax(0.0, p.GetCurrentVestClass().default.SpeedModifier);
+        return fmax(0.0, p.GetCurrentVestClass().default.SpeedModifier);
 
     return 0.0;
 }
@@ -34,12 +34,12 @@ static function float GetMagCapacityModStatic(KFPlayerReplicationInfo KFPRI, cla
     {
         return 1.2001 + 0.025 * GetClientVeteranSkillLevel(KFPRI);
     }
-	return 1.0;
+    return 1.0;
 }
 
 static function float GetAmmoPickupMod(KFPlayerReplicationInfo KFPRI, KFAmmunition Other)
 {
-	return AddExtraAmmoFor(KFPRI, Other.class);
+    return AddExtraAmmoFor(KFPRI, Other.class);
 }
 
 static function float AddExtraAmmoFor(KFPlayerReplicationInfo KFPRI, Class<Ammunition> AmmoType)
@@ -55,7 +55,7 @@ static function float AddExtraAmmoFor(KFPlayerReplicationInfo KFPRI, Class<Ammun
                 || ClassIsInArray(default.PerkedAmmo, AmmoType)  //v3 - custom weapon support
             )
         return 1.0 + 0.05 * GetClientVeteranSkillLevel(KFPRI);
-	return 1.0;
+    return 1.0;
 }
 
 static function int AddDamage(KFPlayerReplicationInfo KFPRI, KFMonster Injured, KFPawn DamageTaker, int InDamage, class<DamageType> DmgType)
@@ -68,7 +68,7 @@ static function int AddDamage(KFPlayerReplicationInfo KFPRI, KFMonster Injured, 
             || ClassIsChildOf(DmgType, class'DamTypeZEDGunMKII') )
     {
         // 30% base bonus + 5% per level
-		InDamage *= 1.30 + 0.05 * GetClientVeteranSkillLevel(KFPRI);
+        InDamage *= 1.30 + 0.05 * GetClientVeteranSkillLevel(KFPRI);
     }
 
     return InDamage;
@@ -115,9 +115,9 @@ static function float GetCostScaling(KFPlayerReplicationInfo KFPRI, class<Pickup
     {
         // 30% base discount + 5% extra per level
         return fmax(0.10, 0.70 - 0.05 * GetClientVeteranSkillLevel(KFPRI));
-	}
+    }
 
-	return 1.0;
+    return 1.0;
 }
 
 static function float GetAmmoCostScaling(KFPlayerReplicationInfo KFPRI, class<Pickup> Item)
@@ -125,21 +125,21 @@ static function float GetAmmoCostScaling(KFPlayerReplicationInfo KFPRI, class<Pi
     if ( ClassIsChildOf(Item, class'FragPickup') )
         return 1.5; // more expensive cryo nades
 
-	return 1.0;
+    return 1.0;
 }
 
 static function string GetCustomLevelInfo( byte Level )
 {
-	local string S;
+    local string S;
 
-	S = Default.CustomLevelInfo;
-	ReplaceText(S,"%L",string(Level));
-	ReplaceText(S,"%x",GetPercentStr(0.30 + 0.05*Level));
-	ReplaceText(S,"%m",GetPercentStr(0.20 + 0.025*Level));
-	ReplaceText(S,"%a",GetPercentStr(0.05*Level));
-	ReplaceText(S,"%g",string(Level/2));
-	ReplaceText(S,"%$",GetPercentStr(fmin(0.90, 0.30 + 0.05*Level)));
-	return S;
+    S = Default.CustomLevelInfo;
+    ReplaceText(S,"%L",string(Level));
+    ReplaceText(S,"%x",GetPercentStr(0.30 + 0.05*Level));
+    ReplaceText(S,"%m",GetPercentStr(0.20 + 0.025*Level));
+    ReplaceText(S,"%a",GetPercentStr(0.05*Level));
+    ReplaceText(S,"%g",string(Level/2));
+    ReplaceText(S,"%$",GetPercentStr(fmin(0.90, 0.30 + 0.05*Level)));
+    return S;
 }
 
 defaultproperties

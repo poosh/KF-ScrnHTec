@@ -2,7 +2,7 @@ class FreezeParticlesDirectional extends FreezeParticlesBase;
 
 simulated function Trigger(Actor Other, Pawn EventInstigator)
 {
-	Emitters[0].SpawnParticle(1);
+    Emitters[0].SpawnParticle(1);
 }
 
 defaultproperties

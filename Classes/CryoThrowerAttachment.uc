@@ -1,33 +1,33 @@
 class CryoThrowerAttachment extends KFWeaponAttachment;
 
-var		array<string>	SkinRefs;
+var        array<string>    SkinRefs;
 
 static function PreloadAssets(optional KFWeaponAttachment Spawned)
 {
-	local int i;
+    local int i;
     
     super.PreloadAssets(Spawned);
     
-	for ( i = 0; i < default.SkinRefs.Length; i++ )
-		default.Skins[i] = Material(DynamicLoadObject(default.SkinRefs[i], class'Material'));
+    for ( i = 0; i < default.SkinRefs.Length; i++ )
+        default.Skins[i] = Material(DynamicLoadObject(default.SkinRefs[i], class'Material'));
 
 
-	if ( Spawned != none ){
+    if ( Spawned != none ){
         for ( i = 0; i < default.SkinRefs.Length; i++ )
             Spawned.Skins[i] = default.Skins[i];
-	}
+    }
 }
 
 static function bool UnloadAssets()
 {
-	local int i;
+    local int i;
     
     super.UnloadAssets();
 
-	for ( i = 0; i < default.SkinRefs.Length; i++ )
-		default.Skins[i] = none;
+    for ( i = 0; i < default.SkinRefs.Length; i++ )
+        default.Skins[i] = none;
 
-	return true;
+    return true;
 }
 
 // No dynamic light when firing this

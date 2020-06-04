@@ -1,5 +1,5 @@
 class DamTypeFreezerDart extends DamTypeFreezerBase
-	abstract;
+    abstract;
  
     
 defaultproperties

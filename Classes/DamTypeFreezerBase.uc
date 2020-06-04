@@ -1,5 +1,5 @@
 class DamTypeFreezerBase extends KFWeaponDamageType
-	abstract;
+    abstract;
 
 var float   FreezeRatio; // percent of damage used for freezing effect
 

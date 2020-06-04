@@ -2,7 +2,7 @@
 // K-VOLT 2
 //=============================================================================
 class KVolt extends KFWeapon
-	config(user);
+    config(user);
 
 #exec OBJ LOAD FILE=HTec_A.ukx
 
@@ -17,47 +17,47 @@ class KVolt extends KFWeapon
 
 exec function ReloadMeNow()
 {
-	if(!AllowReload())
-		return;
+    if(!AllowReload())
+        return;
 
-	if ( ThirdPersonActor != none && Level.NetMode != NM_DedicatedServer )
-			KVoltAttachment(ThirdPersonActor).PlayReload();
+    if ( ThirdPersonActor != none && Level.NetMode != NM_DedicatedServer )
+            KVoltAttachment(ThirdPersonActor).PlayReload();
 
-	super.ReloadMeNow();
+    super.ReloadMeNow();
 }
 
 function bool RecommendRangedAttack()
 {
-	return true;
+    return true;
 }
 
 simulated function SetZoomBlendColor(Canvas c)
 {
-	local Byte    val;
-	local Color   clr;
-	local Color   fog;
+    local Byte    val;
+    local Color   clr;
+    local Color   fog;
 
-	clr.R = 255;
-	clr.G = 255;
-	clr.B = 255;
-	clr.A = 255;
+    clr.R = 255;
+    clr.G = 255;
+    clr.B = 255;
+    clr.A = 255;
 
-	if( Instigator.Region.Zone.bDistanceFog )
-	{
-		fog = Instigator.Region.Zone.DistanceFogColor;
-		val = 0;
-		val = Max( val, fog.R);
-		val = Max( val, fog.G);
-		val = Max( val, fog.B);
-		if( val > 128 )
-		{
-			val -= 128;
-			clr.R -= val;
-			clr.G -= val;
-			clr.B -= val;
-		}
-	}
-	c.DrawColor = clr;
+    if( Instigator.Region.Zone.bDistanceFog )
+    {
+        fog = Instigator.Region.Zone.DistanceFogColor;
+        val = 0;
+        val = Max( val, fog.R);
+        val = Max( val, fog.G);
+        val = Max( val, fog.B);
+        if( val > 128 )
+        {
+            val -= 128;
+            clr.R -= val;
+            clr.G -= val;
+            clr.B -= val;
+        }
+    }
+    c.DrawColor = clr;
 }
 
 
