@@ -7,4 +7,5 @@ defaultproperties
     FireModeClass(0)=Class'ScrnHTec.HTecZEDMKIIFire'
     FireModeClass(1)=Class'ScrnHTec.HTecZEDMKIIAltFire'
     ItemName="HTec ZED Eradication Device MKII"
-} 
+    Weight=5
+}

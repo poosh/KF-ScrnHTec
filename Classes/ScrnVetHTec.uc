@@ -32,7 +32,7 @@ static function float GetMagCapacityModStatic(KFPlayerReplicationInfo KFPRI, cla
             || ClassIsInArray(default.PerkedWeapons, Other)  //v3 - custom weapon support
         )
     {
-        return 1.2001 + 0.025 * GetClientVeteranSkillLevel(KFPRI);
+        return 1.2001 + 0.05 * GetClientVeteranSkillLevel(KFPRI);
     }
     return 1.0;
 }
@@ -82,7 +82,7 @@ static function int ReduceDamage(KFPlayerReplicationInfo KFPRI, KFPawn Injured, 
     if ( Instigator == Injured && ClassIsChildOf(DmgType, class'DamTypeFreezerBase') )
         return 0; // can't freeze himself
 
-    if ( (DmgType == class'DamTypeVomit' || DmgType == class'SirenScreamDamage')
+    if ( (DmgType == class'DamTypeVomit' || DmgType == class'SirenScreamDamage' || DmgType == class'DamTypeSirenDart')
             && Injured != none && Injured.ShieldStrength > 100 )
         InDamage *= 0.4;
 
@@ -101,9 +101,6 @@ static function bool CanCookNade(KFPlayerReplicationInfo KFPRI, Weapon Weap)
 
 static function float GetCostScaling(KFPlayerReplicationInfo KFPRI, class<Pickup> Item)
 {
-    // couldn't find any good place to put it...
-    class'ScrnHorzineVestPickup'.default.CorrespondingPerkIndex = default.PerkIndex;
-
     if ( Item == class'FrozenDosh' ) {
         return 3.0;
     }
@@ -135,7 +132,7 @@ static function string GetCustomLevelInfo( byte Level )
     S = Default.CustomLevelInfo;
     ReplaceText(S,"%L",string(Level));
     ReplaceText(S,"%x",GetPercentStr(0.30 + 0.05*Level));
-    ReplaceText(S,"%m",GetPercentStr(0.20 + 0.025*Level));
+    ReplaceText(S,"%m",GetPercentStr(0.20 + 0.05*Level));
     ReplaceText(S,"%a",GetPercentStr(0.05*Level));
     ReplaceText(S,"%g",string(Level/2));
     ReplaceText(S,"%$",GetPercentStr(fmin(0.90, 0.30 + 0.05*Level)));
@@ -148,7 +145,7 @@ defaultproperties
     DefaultDamageTypeNoBonus=Class'ScrnHTec.DamTypeFreezerNoDmgBonus' // allows perk progression, but doesn't add damage bonuses
     SamePerkAch="OP_HTec"
 
-    SkillInfo="PERK SKILLS (HTec v4.05):|Cryo Grenades|Higher frozen dosh value|Armor does not slow you down|60% less damage from Bloat Bile and Siren Scream while Armor > 100"
+    SkillInfo="PERK SKILLS (HTec v5.00):|Cryo Grenades|Higher frozen dosh value|Armor does not slow you down|60% less damage from Bloat Bile and Siren Scream while Armor > 100"
     CustomLevelInfo="PERK BONUSES (LEVEL %L):|%x more damage with ZED/Cryo Guns|%x faster freezing|%m larger ZED Gun clips|%a more ZED/Cryo Ammo|+%g extra Cryo grenades|%$ discount on HTec Inventory"
 
     PerkIndex=11
