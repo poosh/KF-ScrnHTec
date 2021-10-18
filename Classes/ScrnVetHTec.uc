@@ -145,7 +145,7 @@ defaultproperties
     DefaultDamageTypeNoBonus=Class'ScrnHTec.DamTypeFreezerNoDmgBonus' // allows perk progression, but doesn't add damage bonuses
     SamePerkAch="OP_HTec"
 
-    SkillInfo="PERK SKILLS (HTec v5.00):|Cryo Grenades|Higher frozen dosh value|Armor does not slow you down|60% less damage from Bloat Bile and Siren Scream while Armor > 100"
+    SkillInfo="PERK SKILLS (HTec v5.01):|Cryo Grenades|Higher frozen dosh value|Armor does not slow you down|60% less damage from Bloat Bile and Siren Scream while Armor > 100"
     CustomLevelInfo="PERK BONUSES (LEVEL %L):|%x more damage with ZED/Cryo Guns|%x faster freezing|%m larger ZED Gun clips|%a more ZED/Cryo Ammo|+%g extra Cryo grenades|%$ discount on HTec Inventory"
 
     PerkIndex=11
@@ -161,6 +161,7 @@ defaultproperties
 
     Requirements(0)="Freeze or zap %x ZEDs"
     VeterancyName="Horzine Technician"
+    ShortName="HTEC"
     progressArray0(0)=20
     progressArray0(1)=100
     progressArray0(2)=400
