@@ -1,18 +1,13 @@
-class HTecMut extends Mutator;
+class HTecMut extends ScrnAchMutator;
 
-function PostBeginPlay()
-{
-    // FreezeRules are spawned inside FreezeAchHandler, which ensures that they are added 
-    // AFTER ScrnGameRules. Don't spawn them anywhere else.
-    class'ScrnAchievements'.static.RegisterAchievements(class'FreezeAch');
-    Level.Game.Spawn(class'FreezeAchHandler');
-    Destroy();
-}
 
 defaultproperties
 {
-    bAddToServerPackages=True
+    VersionNumber=96801
+    AchClass=class'ScrnHTec.FreezeAch'
+    AchHandler=class'ScrnHTec.FreezeAchHandler'
+
     GroupName="KF-Freezer"
     FriendlyName="ScrN Horzine Technician"
-    Description="Horzine Technician featuring IJC Cryo Mass Driver 14. Requires ScrN Balance v9+."
+    Description="Horzine Technician featuring IJC Cryo Mass Driver 14."
 }
