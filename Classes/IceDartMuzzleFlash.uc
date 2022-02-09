@@ -38,7 +38,7 @@ defaultproperties
          LifetimeRange=(Min=2.000000,Max=2.000000)
          StartVelocityRange=(X=(Min=-60.000000,Max=60.000000),Y=(Min=-60.000000,Max=60.000000),Z=(Min=-60.000000,Max=60.000000))
      End Object
-     Emitters(0)=BeamEmitter'ScrnHTec.IceDartMuzzleFlash.BeamEmitter0'
+     Emitters(0)=BeamEmitter0
 
      Begin Object Class=SparkEmitter Name=SparkEmitter0
          LineSegmentsRange=(Min=0.000000,Max=0.000000)
@@ -60,7 +60,7 @@ defaultproperties
          LifetimeRange=(Min=0.200000,Max=0.200000)
          StartVelocityRange=(X=(Min=200.000000,Max=350.000000),Y=(Min=-150.000000,Max=150.000000),Z=(Min=-150.000000,Max=150.000000))
      End Object
-     Emitters(1)=SparkEmitter'ScrnHTec.IceDartMuzzleFlash.SparkEmitter0'
+     Emitters(1)=SparkEmitter0
 
      Begin Object Class=SpriteEmitter Name=SpriteEmitter0
          ProjectionNormal=(Y=1.000000,Z=0.000000)
@@ -92,7 +92,7 @@ defaultproperties
          LifetimeRange=(Min=1.000000,Max=1.000000)
          StartVelocityRange=(Z=(Min=-25.000000,Max=-15.000000))
      End Object
-     Emitters(2)=SpriteEmitter'ScrnHTec.IceDartMuzzleFlash.SpriteEmitter0'
+     Emitters(2)=SpriteEmitter0
 
      Begin Object Class=SpriteEmitter Name=SpriteEmitter1
          UseColorScale=True
@@ -111,7 +111,7 @@ defaultproperties
          Texture=Texture'Effects_Tex.Smoke.MuzzleCorona1stP'
          LifetimeRange=(Min=0.100000,Max=0.100000)
      End Object
-     Emitters(3)=SpriteEmitter'ScrnHTec.IceDartMuzzleFlash.SpriteEmitter1'
+     Emitters(3)=SpriteEmitter1
 
      Begin Object Class=SpriteEmitter Name=SpriteEmitter2
          ProjectionNormal=(Y=1.000000,Z=0.000000)
@@ -146,7 +146,7 @@ defaultproperties
          LifetimeRange=(Min=0.300000,Max=0.300000)
          StartVelocityRange=(X=(Min=60.000000,Max=150.000000),Z=(Min=-50.000000,Max=-15.000000))
      End Object
-     Emitters(4)=SpriteEmitter'ScrnHTec.IceDartMuzzleFlash.SpriteEmitter2'
+     Emitters(4)=SpriteEmitter2
 
      Begin Object Class=SpriteEmitter Name=SpriteEmitter3
          ProjectionNormal=(Y=1.000000,Z=0.000000)
@@ -179,7 +179,7 @@ defaultproperties
          LifetimeRange=(Min=0.800000,Max=0.800000)
          StartVelocityRange=(X=(Max=150.000000),Z=(Min=-50.000000,Max=-25.000000))
      End Object
-     Emitters(5)=SpriteEmitter'ScrnHTec.IceDartMuzzleFlash.SpriteEmitter3'
+     Emitters(5)=SpriteEmitter3
 
      Begin Object Class=SpriteEmitter Name=SpriteEmitter4
          UseCollision=True
@@ -206,7 +206,7 @@ defaultproperties
          LifetimeRange=(Min=1.400000,Max=1.400000)
          StartVelocityRange=(X=(Min=500.000000,Max=800.000000),Y=(Min=-300.000000,Max=300.000000),Z=(Min=-300.000000,Max=300.000000))
      End Object
-     Emitters(6)=SpriteEmitter'ScrnHTec.IceDartMuzzleFlash.SpriteEmitter4'
+     Emitters(6)=SpriteEmitter4
 
      Begin Object Class=SpriteEmitter Name=SpriteEmitter5
          ProjectionNormal=(Y=1.000000,Z=0.000000)
@@ -237,7 +237,7 @@ defaultproperties
          TextureVSubdivisions=1
          LifetimeRange=(Min=0.100000,Max=0.100000)
      End Object
-     Emitters(7)=SpriteEmitter'ScrnHTec.IceDartMuzzleFlash.SpriteEmitter5'
+     Emitters(7)=SpriteEmitter5
 
      Begin Object Class=SpriteEmitter Name=SpriteEmitter6
          FadeOut=True
@@ -270,7 +270,7 @@ defaultproperties
          VelocityScale(1)=(RelativeTime=0.475000,RelativeVelocity=(X=0.100000,Y=0.200000,Z=0.200000))
          VelocityScale(2)=(RelativeTime=1.000000)
      End Object
-     Emitters(8)=SpriteEmitter'ScrnHTec.IceDartMuzzleFlash.SpriteEmitter6'
+     Emitters(8)=SpriteEmitter6
 
      Begin Object Class=SpriteEmitter Name=SpriteEmitter7
          ProjectionNormal=(Y=1.000000,Z=0.000000)
@@ -301,7 +301,7 @@ defaultproperties
          LifetimeRange=(Min=0.450000,Max=0.450000)
          StartVelocityRange=(Z=(Min=-20.000000,Max=-15.000000))
      End Object
-     Emitters(9)=SpriteEmitter'ScrnHTec.IceDartMuzzleFlash.SpriteEmitter7'
+     Emitters(9)=SpriteEmitter7
 
      Begin Object Class=SpriteEmitter Name=SpriteEmitter8
          FadeOut=True
@@ -335,6 +335,6 @@ defaultproperties
          VelocityScale(1)=(RelativeTime=0.475000,RelativeVelocity=(X=0.100000,Y=0.200000,Z=0.200000))
          VelocityScale(2)=(RelativeTime=1.000000)
      End Object
-     Emitters(10)=SpriteEmitter'ScrnHTec.IceDartMuzzleFlash.SpriteEmitter8'
+     Emitters(10)=SpriteEmitter8
 
 }

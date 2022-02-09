@@ -204,9 +204,9 @@ defaultproperties
     ShakeRotMag=(X=0.000000,Y=0.000000,Z=0.000000)
     ShakeRotRate=(X=0.000000,Y=0.000000,Z=0.000000)
     ShakeOffsetMag=(X=0.000000,Y=0.000000,Z=0.000000)
-    ProjectileClass=Class'ScrnHTec.NitroProjectile'
+    ProjectileClass=class'NitroProjectile'
     BotRefireRate=0.070000
-    FlashEmitterClass=Class'ScrnHTec.NitroMuzzleFlash'
+    FlashEmitterClass=class'NitroMuzzleFlash'
     Spread=1500.000000
     SpreadStyle=SS_Random
 }

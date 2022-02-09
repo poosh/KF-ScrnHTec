@@ -84,7 +84,7 @@ defaultproperties
      bModeZeroCanDryFire=True
      PlayerIronSightFOV=65.000000
      ZoomedDisplayFOV=40.000000
-     FireModeClass(0)=Class'ScrnHTec.KVoltFire'
+     FireModeClass(0)=class'KVoltFire'
      FireModeClass(1)=Class'KFMod.NoFire'
      TraderInfoTexture=Texture'HTec_A.KVolt.kvolt_trader'
      PutDownAnim="PutDown"
@@ -102,10 +102,10 @@ defaultproperties
      CustomCrossHairTextureName="Crosshairs.HUD.Crosshair_Cross5"
      InventoryGroup=3
      GroupOffset=1
-     PickupClass=Class'ScrnHTec.KVoltPickup'
+     PickupClass=class'KVoltPickup'
      PlayerViewOffset=(X=20.000000,Y=21.500000,Z=-9.000000)
      BobDamping=6.000000
-     AttachmentClass=Class'ScrnHTec.KVoltAttachment'
+     AttachmentClass=class'KVoltAttachment'
      IconCoords=(X1=245,Y1=39,X2=329,Y2=79)
      ItemName="HTec K-VOLT Cryo"
      TransientSoundVolume=1.250000

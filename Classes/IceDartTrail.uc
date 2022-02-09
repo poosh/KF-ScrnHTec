@@ -23,7 +23,7 @@ defaultproperties
          StartVelocityRange=(X=(Min=-300.000000,Max=300.000000),Y=(Min=-300.000000,Max=300.000000),Z=(Min=-300.000000,Max=300.000000))
          VelocityLossRange=(X=(Max=5.000000),Y=(Max=5.000000),Z=(Max=5.000000))
      End Object
-     Emitters(0)=SpriteEmitter'ScrnHTec.IceDartTrail.SpriteEmitter0'
+     Emitters(0)=SpriteEmitter0
 
      Begin Object Class=SpriteEmitter Name=SpriteEmitter2
          UseColorScale=True
@@ -49,7 +49,7 @@ defaultproperties
          StartVelocityRange=(Y=(Min=-100.000000,Max=100.000000),Z=(Min=-100.000000,Max=100.000000))
          VelocityLossRange=(Y=(Max=10.000000),Z=(Max=10.000000))
      End Object
-     Emitters(1)=SpriteEmitter'ScrnHTec.IceDartTrail.SpriteEmitter2'
+     Emitters(1)=SpriteEmitter2
 
      Begin Object Class=SpriteEmitter Name=SpriteEmitter3
          UseColorScale=True
@@ -74,7 +74,7 @@ defaultproperties
          StartVelocityRange=(Y=(Min=-100.000000,Max=100.000000),Z=(Min=-100.000000,Max=100.000000))
          VelocityLossRange=(Y=(Max=10.000000),Z=(Max=10.000000))
      End Object
-     Emitters(2)=SpriteEmitter'ScrnHTec.IceDartTrail.SpriteEmitter3'
+     Emitters(2)=SpriteEmitter3
 
      Physics=PHYS_Trailer
      LifeSpan=5.0

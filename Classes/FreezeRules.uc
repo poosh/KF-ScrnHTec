@@ -597,7 +597,7 @@ defaultproperties
     FrozenDamageMult=1.500000
     FrozenDamageMultHS=4.500000
     FrozenDamageMultSG=2.500000
-    ShatterProjClass=class'ScrnHTec.SirenDart'
-    ShatteredIce=Class'ScrnHTec.IceChunkEmitter'
+    ShatterProjClass=class'SirenDart'
+    ShatteredIce=class'IceChunkEmitter'
     bDosh=True
 }

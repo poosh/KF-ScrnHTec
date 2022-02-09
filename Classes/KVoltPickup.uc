@@ -20,7 +20,7 @@ defaultproperties
      AmmoMesh=StaticMesh'KillingFloorStatics.L85Ammo'
      CorrespondingPerkIndex=11
      EquipmentCategoryID=2
-     InventoryType=Class'ScrnHTec.KVolt'
+     InventoryType=class'KVolt'
      PickupMessage="You got the HTec K-VOLT Cryo"
      PickupSound=Sound'HTec_A.KVolt.kvolt_magin'
      PickupForce="AssaultRiflePickup"

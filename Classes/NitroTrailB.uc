@@ -31,7 +31,7 @@ defaultproperties
          StartVelocityRange=(X=(Min=-5.000000,Max=5.000000),Y=(Min=-5.000000,Max=5.000000),Z=(Min=-10.000000,Max=-10.000000))
          StartVelocityRadialRange=(Min=-40.000000,Max=40.000000)
      End Object
-     Emitters(0)=SpriteEmitter'ScrnHTec.NitroTrailB.SpriteEmitter0'
+     Emitters(0)=SpriteEmitter0
 
      Begin Object Class=SpriteEmitter Name=SpriteEmitter1
          UseColorScale=True
@@ -63,7 +63,7 @@ defaultproperties
          StartVelocityRange=(X=(Min=-50.000000,Max=50.000000),Y=(Min=-50.000000,Max=50.000000),Z=(Min=-60.000000,Max=-60.000000))
          StartVelocityRadialRange=(Min=-40.000000,Max=40.000000)
      End Object
-     Emitters(1)=SpriteEmitter'ScrnHTec.NitroTrailB.SpriteEmitter1'
+     Emitters(1)=SpriteEmitter1
 
      Physics=PHYS_Trailer
      LifeSpan=2.900000

@@ -147,8 +147,8 @@ defaultproperties
      AppID=0
      ZoomInRotation=(Pitch=-1000,Roll=1500)
      ZoomedDisplayFOV=60.000000
-     FireModeClass(0)=Class'ScrnHTec.CryoThrowerFire'
-     FireModeClass(1)=Class'ScrnHTec.CryoThrowerAltFire'
+     FireModeClass(0)=class'CryoThrowerFire'
+     FireModeClass(1)=class'CryoThrowerAltFire'
      PutDownAnim="PutDown"
      PutDownTime=0.500000
      AIRating=0.700000
@@ -159,10 +159,10 @@ defaultproperties
      Priority=103
      InventoryGroup=4
      GroupOffset=21
-     PickupClass=Class'ScrnHTec.CryoThrowerPickup'
+     PickupClass=class'CryoThrowerPickup'
      PlayerViewOffset=(X=15.000000,Y=20.000000,Z=-3.000000)
      BobDamping=6.000000
-     AttachmentClass=Class'ScrnHTec.CryoThrowerAttachment'
+     AttachmentClass=class'CryoThrowerAttachment'
      IconCoords=(X1=245,Y1=39,X2=329,Y2=79)
      ItemName="HTec Cryo Thrower"
      TransientSoundVolume=1.250000

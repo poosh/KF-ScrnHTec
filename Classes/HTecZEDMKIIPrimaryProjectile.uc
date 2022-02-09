@@ -2,5 +2,5 @@ class HTecZEDMKIIPrimaryProjectile extends ZEDMKIIPrimaryProjectile;
 
 defaultproperties
 {
-    MyDamageType=Class'ScrnHTec.DamTypeHTecZEDGunMKII'
+    MyDamageType=class'DamTypeHTecZEDGunMKII'
 }

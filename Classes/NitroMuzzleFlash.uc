@@ -35,7 +35,7 @@ defaultproperties
          LifetimeRange=(Min=1.400000,Max=1.400000)
          StartVelocityRange=(X=(Min=150.000000,Max=650.000000),Y=(Min=-155.000000,Max=155.000000),Z=(Min=-155.000000,Max=155.000000))
      End Object
-     Emitters(0)=SpriteEmitter'ScrnHTec.NitroMuzzleFlash.SpriteEmitter0'
+     Emitters(0)=SpriteEmitter0
 
      Begin Object Class=BeamEmitter Name=BeamEmitter0
          BeamDistanceRange=(Min=3.000000,Max=300.000000)
@@ -64,7 +64,7 @@ defaultproperties
          LifetimeRange=(Min=2.000000,Max=2.000000)
          StartVelocityRange=(X=(Min=-40.000000,Max=40.000000),Y=(Min=-40.000000,Max=40.000000),Z=(Min=-40.000000,Max=40.000000))
      End Object
-     Emitters(1)=BeamEmitter'ScrnHTec.NitroMuzzleFlash.BeamEmitter0'
+     Emitters(1)=BeamEmitter0
 
      Begin Object Class=SpriteEmitter Name=SpriteEmitter1
          ProjectionNormal=(Y=1.000000,Z=0.000000)
@@ -97,7 +97,7 @@ defaultproperties
          LifetimeRange=(Min=0.750000,Max=0.750000)
          StartVelocityRange=(X=(Min=200.000000,Max=600.000000),Z=(Min=-50.000000,Max=-15.000000))
      End Object
-     Emitters(2)=SpriteEmitter'ScrnHTec.NitroMuzzleFlash.SpriteEmitter1'
+     Emitters(2)=SpriteEmitter1
 
      Begin Object Class=SpriteEmitter Name=SpriteEmitter2
          ProjectionNormal=(Y=1.000000,Z=0.000000)
@@ -131,7 +131,7 @@ defaultproperties
          LifetimeRange=(Min=0.750000,Max=0.750000)
          StartVelocityRange=(X=(Min=150.000000,Max=650.000000),Z=(Min=-50.000000,Max=-15.000000))
      End Object
-     Emitters(3)=SpriteEmitter'ScrnHTec.NitroMuzzleFlash.SpriteEmitter2'
+     Emitters(3)=SpriteEmitter2
 
      Begin Object Class=SpriteEmitter Name=SpriteEmitter3
          ProjectionNormal=(Y=1.000000,Z=0.000000)
@@ -162,7 +162,7 @@ defaultproperties
          TextureVSubdivisions=8
          LifetimeRange=(Min=0.350000,Max=0.350000)
      End Object
-     Emitters(4)=SpriteEmitter'ScrnHTec.NitroMuzzleFlash.SpriteEmitter3'
+     Emitters(4)=SpriteEmitter3
 
      Begin Object Class=SpriteEmitter Name=SpriteEmitter4
          ProjectionNormal=(Y=1.000000,Z=0.000000)
@@ -196,7 +196,7 @@ defaultproperties
          LifetimeRange=(Min=0.750000,Max=0.750000)
          StartVelocityRange=(X=(Min=350.000000,Max=600.000000),Z=(Min=-50.000000,Max=-15.000000))
      End Object
-     Emitters(5)=SpriteEmitter'ScrnHTec.NitroMuzzleFlash.SpriteEmitter4'
+     Emitters(5)=SpriteEmitter4
 
      Begin Object Class=SparkEmitter Name=SparkEmitter0
          LineSegmentsRange=(Min=0.000000,Max=0.000000)
@@ -218,7 +218,7 @@ defaultproperties
          LifetimeRange=(Min=0.500000,Max=0.500000)
          StartVelocityRange=(X=(Min=800.000000,Max=1500.000000),Y=(Min=-250.000000,Max=250.000000),Z=(Min=-250.000000,Max=250.000000))
      End Object
-     Emitters(6)=SparkEmitter'ScrnHTec.NitroMuzzleFlash.SparkEmitter0'
+     Emitters(6)=SparkEmitter0
 
      Begin Object Class=SpriteEmitter Name=SpriteEmitter5
          UseColorScale=True
@@ -234,7 +234,7 @@ defaultproperties
          Texture=Texture'Effects_Tex.Smoke.MuzzleCorona1stP'
          LifetimeRange=(Min=0.100000,Max=0.100000)
      End Object
-     Emitters(7)=SpriteEmitter'ScrnHTec.NitroMuzzleFlash.SpriteEmitter5'
+     Emitters(7)=SpriteEmitter5
 
      Begin Object Class=SpriteEmitter Name=SpriteEmitter6
          ProjectionNormal=(Y=1.000000,Z=0.000000)
@@ -267,7 +267,7 @@ defaultproperties
          TextureVSubdivisions=1
          StartVelocityRange=(X=(Min=15.000000,Max=130.000000),Y=(Min=-15.000000,Max=15.000000),Z=(Min=-15.000000,Max=15.000000))
      End Object
-     Emitters(8)=SpriteEmitter'ScrnHTec.NitroMuzzleFlash.SpriteEmitter6'
+     Emitters(8)=SpriteEmitter6
 
      Begin Object Class=SpriteEmitter Name=SpriteEmitter7
          ProjectionNormal=(Y=1.000000,Z=0.000000)
@@ -301,6 +301,6 @@ defaultproperties
          LifetimeRange=(Min=0.750000,Max=0.750000)
          StartVelocityRange=(X=(Min=150.000000,Max=550.000000))
      End Object
-     Emitters(9)=SpriteEmitter'ScrnHTec.NitroMuzzleFlash.SpriteEmitter7'
+     Emitters(9)=SpriteEmitter7
 
 }

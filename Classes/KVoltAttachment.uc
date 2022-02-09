@@ -40,7 +40,7 @@ defaultproperties
 {
     MeshRef="HTec_A.kvolt_3rd"
 
-    //mMuzFlashClass=Class'ScrnHTec.MuzzleFlash3rdKVolt'
+    //mMuzFlashClass=class'MuzzleFlash3rdKVolt'
     mMuzFlashClass=Class'ROEffects.MuzzleFlash3rdNailGun'
     mShellCaseEmitterClass=None
     ReloadAnim3rd="Reload"

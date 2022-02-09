@@ -32,7 +32,7 @@ defaultproperties
          InitialParticlesPerSecond=10000.000000
          StartVelocityRange=(X=(Min=-75.000000,Max=75.000000),Y=(Min=-75.000000,Max=75.000000),Z=(Min=-100.000000,Max=300.000000))
      End Object
-     Emitters(0)=MeshEmitter'ScrnHTec.IceChunkEmitter.MeshEmitter0'
+     Emitters(0)=MeshEmitter0
 
      Begin Object Class=MeshEmitter Name=MeshEmitter2
          StaticMesh=StaticMesh'HTec_A.IceChunk2'
@@ -55,7 +55,7 @@ defaultproperties
          InitialParticlesPerSecond=10000.000000
          StartVelocityRange=(X=(Min=-150.000000,Max=150.000000),Y=(Min=-150.000000,Max=150.000000),Z=(Min=-100.000000,Max=500.000000))
      End Object
-     Emitters(1)=MeshEmitter'ScrnHTec.IceChunkEmitter.MeshEmitter2'
+     Emitters(1)=MeshEmitter2
 
      Begin Object Class=MeshEmitter Name=MeshEmitter3
          StaticMesh=StaticMesh'HTec_A.IceChunk3'
@@ -78,7 +78,7 @@ defaultproperties
          InitialParticlesPerSecond=10000.000000
          StartVelocityRange=(X=(Min=-200.000000,Max=200.000000),Y=(Min=-200.000000,Max=200.000000),Z=(Min=-100.000000,Max=500.000000))
      End Object
-     Emitters(2)=MeshEmitter'ScrnHTec.IceChunkEmitter.MeshEmitter3'
+     Emitters(2)=MeshEmitter3
 
      Begin Object Class=SpriteEmitter Name=SpriteEmitter8
          UseCollision=True
@@ -106,7 +106,7 @@ defaultproperties
          LifetimeRange=(Min=1.400000,Max=1.400000)
          StartVelocityRange=(X=(Min=-200.000000,Max=200.000000),Y=(Min=-200.000000,Max=200.000000),Z=(Min=-300.000000,Max=350.000000))
      End Object
-     Emitters(3)=SpriteEmitter'ScrnHTec.IceChunkEmitter.SpriteEmitter8'
+     Emitters(3)=SpriteEmitter8
 
      Begin Object Class=SpriteEmitter Name=SpriteEmitter9
          ProjectionNormal=(Y=1.000000,Z=0.000000)
@@ -142,7 +142,7 @@ defaultproperties
          LifetimeRange=(Min=0.750000,Max=0.750000)
          StartVelocityRange=(X=(Min=-150.000000,Max=150.000000),Y=(Min=-150.000000,Max=150.000000),Z=(Min=-25.000000,Max=300.000000))
      End Object
-     Emitters(4)=SpriteEmitter'ScrnHTec.IceChunkEmitter.SpriteEmitter9'
+     Emitters(4)=SpriteEmitter9
 
      Begin Object Class=SpriteEmitter Name=SpriteEmitter10
          ProjectionNormal=(Y=1.000000,Z=0.000000)
@@ -174,7 +174,7 @@ defaultproperties
          TextureVSubdivisions=8
          LifetimeRange=(Min=0.350000,Max=0.350000)
      End Object
-     Emitters(5)=SpriteEmitter'ScrnHTec.IceChunkEmitter.SpriteEmitter10'
+     Emitters(5)=SpriteEmitter10
 
      Begin Object Class=SpriteEmitter Name=SpriteEmitter11
          ProjectionNormal=(Y=1.000000,Z=0.000000)
@@ -206,7 +206,7 @@ defaultproperties
          TextureVSubdivisions=8
          LifetimeRange=(Min=0.350000,Max=0.350000)
      End Object
-     Emitters(6)=SpriteEmitter'ScrnHTec.IceChunkEmitter.SpriteEmitter11'
+     Emitters(6)=SpriteEmitter11
 
      Begin Object Class=SpriteEmitter Name=SpriteEmitter12
          ProjectionNormal=(Y=1.000000,Z=0.000000)
@@ -239,7 +239,7 @@ defaultproperties
          TextureVSubdivisions=8
          LifetimeRange=(Min=0.350000,Max=0.350000)
      End Object
-     Emitters(7)=SpriteEmitter'ScrnHTec.IceChunkEmitter.SpriteEmitter12'
+     Emitters(7)=SpriteEmitter12
 
      Begin Object Class=SpriteEmitter Name=SpriteEmitter13
          ProjectionNormal=(Y=1.000000,Z=0.000000)
@@ -275,7 +275,7 @@ defaultproperties
          LifetimeRange=(Min=0.750000,Max=0.750000)
          StartVelocityRange=(X=(Min=-150.000000,Max=150.000000),Y=(Min=-150.000000,Max=150.000000),Z=(Min=-5.000000,Max=150.000000))
      End Object
-     Emitters(8)=SpriteEmitter'ScrnHTec.IceChunkEmitter.SpriteEmitter13'
+     Emitters(8)=SpriteEmitter13
 
      Begin Object Class=SpriteEmitter Name=SpriteEmitter14
          ProjectionNormal=(Y=1.000000,Z=0.000000)
@@ -311,7 +311,7 @@ defaultproperties
          StartVelocityRange=(X=(Min=-350.000000,Max=350.000000),Y=(Min=-350.000000,Max=350.000000),Z=(Min=-5.000000,Max=50.000000))
          VelocityLossRange=(X=(Min=3.000000,Max=3.000000),Y=(Min=3.000000,Max=3.000000))
      End Object
-     Emitters(9)=SpriteEmitter'ScrnHTec.IceChunkEmitter.SpriteEmitter14'
+     Emitters(9)=SpriteEmitter14
 
      Begin Object Class=SpriteEmitter Name=SpriteEmitter15
          UseCollision=True
@@ -339,7 +339,7 @@ defaultproperties
          LifetimeRange=(Min=1.400000,Max=1.400000)
          StartVelocityRange=(X=(Min=-200.000000,Max=200.000000),Y=(Min=-200.000000,Max=200.000000),Z=(Min=-300.000000,Max=350.000000))
      End Object
-     Emitters(10)=SpriteEmitter'ScrnHTec.IceChunkEmitter.SpriteEmitter15'
+     Emitters(10)=SpriteEmitter15
 
      AutoDestroy=True
      bNoDelete=False

@@ -44,8 +44,8 @@ defaultproperties
      FireForce="AssaultRifleFire"
      FireRate=0.075000
      ProjPerFire=1
-     ProjectileClass=Class'ScrnHTec.KVoltDart'
-     AmmoClass=Class'ScrnHTec.KVoltAmmo'
+     ProjectileClass=class'KVoltDart'
+     AmmoClass=class'KVoltAmmo'
      AmmoPerFire=1
      ShakeRotMag=(X=75.000000,Y=75.000000,Z=250.000000)
      ShakeRotRate=(X=10000.000000,Y=10000.000000,Z=10000.000000)
@@ -54,7 +54,7 @@ defaultproperties
      ShakeOffsetRate=(X=1000.000000,Y=1000.000000,Z=1000.000000)
      ShakeOffsetTime=1.000000
      BotRefireRate=0.990000
-     FlashEmitterClass=Class'ScrnHTec.IceDartMuzzleFlash'
+     FlashEmitterClass=class'IceDartMuzzleFlash'
      aimerror=42.000000
      Spread=0.01
      SpreadStyle=SS_Random

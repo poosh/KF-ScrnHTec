@@ -3,7 +3,7 @@ class DamTypeCryoThrower extends DamTypeFreezerBase
 
 defaultproperties
 {
-     WeaponClass=Class'ScrnHTec.CryoThrower'
+     WeaponClass=class'CryoThrower'
 
      FreezeRatio=5
      bCheckForHeadShots=False

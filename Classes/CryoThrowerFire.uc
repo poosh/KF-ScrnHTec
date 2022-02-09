@@ -21,7 +21,7 @@ defaultproperties
     FireEndAnim="Fire_End"
     FireRate=0.070000
     BotRefireRate=0.070000
-    AmmoClass=Class'ScrnHTec.CryoThrowerAmmo'
-    ProjectileClass=Class'ScrnHTec.CryoThrowerProjectile'
-    FlashEmitterClass=Class'ScrnHTec.NitroMuzzleFlash'
+    AmmoClass=class'CryoThrowerAmmo'
+    ProjectileClass=class'CryoThrowerProjectile'
+    FlashEmitterClass=class'NitroMuzzleFlash'
 }

@@ -16,7 +16,7 @@ defaultproperties
     AmmoItemName="Bile"
     AmmoMesh=StaticMesh'KillingFloorStatics.FT_AmmoMesh'
     EquipmentCategoryID=3
-    InventoryType=Class'ScrnHTec.CryoThrower'
+    InventoryType=class'CryoThrower'
     PickupMessage="You got the CryoThrower"
     PickupSound=Sound'KF_FY_BlowerThrowerSND.foley.WEP_Bile_Foley_Pickup'
     PickupForce="AssaultRiflePickup"

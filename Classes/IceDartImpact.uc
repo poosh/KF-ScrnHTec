@@ -20,7 +20,7 @@ defaultproperties
          Texture=Texture'Effects_Tex.Smoke.MuzzleCorona1stP'
          LifetimeRange=(Min=0.100000,Max=0.100000)
      End Object
-     Emitters(0)=SpriteEmitter'ScrnHTec.IceDartImpact.SpriteEmitter0'
+     Emitters(0)=SpriteEmitter0
 
      Begin Object Class=SpriteEmitter Name=SpriteEmitter1
          UseColorScale=True
@@ -50,7 +50,7 @@ defaultproperties
          LifetimeRange=(Min=3.000000,Max=3.000000)
          StartVelocityRange=(X=(Min=-5.000000,Max=5.000000),Y=(Min=-5.000000,Max=5.000000),Z=(Min=-5.000000,Max=5.000000))
      End Object
-     Emitters(1)=SpriteEmitter'ScrnHTec.IceDartImpact.SpriteEmitter1'
+     Emitters(1)=SpriteEmitter1
 
      Begin Object Class=SpriteEmitter Name=SpriteEmitter2
          UseCollision=True
@@ -78,7 +78,7 @@ defaultproperties
          LifetimeRange=(Min=1.400000,Max=1.400000)
          StartVelocityRange=(X=(Min=-400.000000,Max=400.000000),Y=(Min=-400.000000,Max=400.000000),Z=(Min=-400.000000,Max=600.000000))
      End Object
-     Emitters(2)=SpriteEmitter'ScrnHTec.IceDartImpact.SpriteEmitter2'
+     Emitters(2)=SpriteEmitter2
 
      Begin Object Class=SpriteEmitter Name=SpriteEmitter3
          UseColorScale=True
@@ -109,7 +109,7 @@ defaultproperties
          LifetimeRange=(Min=3.000000,Max=3.000000)
          StartVelocityRange=(X=(Min=-7.500000,Max=7.500000),Y=(Min=-7.500000,Max=7.500000),Z=(Min=-20.000000,Max=20.000000))
      End Object
-     Emitters(3)=SpriteEmitter'ScrnHTec.IceDartImpact.SpriteEmitter3'
+     Emitters(3)=SpriteEmitter3
 
      LifeSpan=5.000000
 }

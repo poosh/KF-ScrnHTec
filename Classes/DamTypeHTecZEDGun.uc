@@ -21,5 +21,5 @@ static function ScoredHeadshot(KFSteamStatsAndAchievements KFStatsAndAchievement
 
 defaultproperties
 {
-     WeaponClass=Class'ScrnHTec.HTecZEDGun'
+     WeaponClass=class'HTecZEDGun'
 }

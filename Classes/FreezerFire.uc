@@ -53,7 +53,7 @@ defaultproperties
      FireAnimRate=1.200000
      TweenTime=0.001500
      FireRate=0.150000
-     AmmoClass=Class'ScrnHTec.FreezerDartAmmo'
+     AmmoClass=class'FreezerDartAmmo'
      AmmoPerFire=1
      ShakeRotMag=(X=50.000000,Y=50.000000,Z=350.000000)
      ShakeRotRate=(X=5000.000000,Y=5000.000000,Z=5000.000000)
@@ -61,9 +61,9 @@ defaultproperties
      ShakeOffsetMag=(X=6.000000,Y=3.000000,Z=7.500000)
      ShakeOffsetRate=(X=1000.000000,Y=1000.000000,Z=1000.000000)
      ShakeOffsetTime=1.250000
-     ProjectileClass=Class'ScrnHTec.FreezerDart'
+     ProjectileClass=class'FreezerDart'
      BotRefireRate=0.990000
-     FlashEmitterClass=Class'ScrnHTec.IceDartMuzzleFlash'
+     FlashEmitterClass=class'IceDartMuzzleFlash'
      aimerror=42.000000
      Spread=0.008000
 }

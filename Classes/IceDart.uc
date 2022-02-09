@@ -55,9 +55,9 @@ defaultproperties
      ImpactSounds(3)=SoundGroup'ProjectileSounds.Bullets.Impact_Metal'
      ImpactSounds(4)=SoundGroup'ProjectileSounds.Bullets.Impact_Metal'
      ImpactSounds(5)=SoundGroup'ProjectileSounds.Bullets.Impact_Metal'
-     ImpactEffect=Class'ScrnHTec.IceDartHitEffect'
+     ImpactEffect=class'IceDartHitEffect'
      Damage=45.000000
-     MyDamageType=Class'ScrnHTec.DamTypeFreezerBase'
+     MyDamageType=class'DamTypeFreezerBase'
      ExplosionDecal=Class'KFMod.NailGunDecal'
      StaticMesh=StaticMesh'HTec_A.IceDart-PROJ'
      LifeSpan=5.000000

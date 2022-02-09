@@ -100,8 +100,8 @@ defaultproperties
     FireAnim="FireALL"
     FireAnimRate=0.950000
     FireRate=0.965000
-    ProjectileClass=Class'ScrnHTec.CryoThrowerAltProjectile'
-    AmmoClass=Class'ScrnHTec.CryoThrowerAmmo'
+    ProjectileClass=class'CryoThrowerAltProjectile'
+    AmmoClass=class'CryoThrowerAmmo'
     AmmoPerFire=10
     ShakeRotMag=(X=50.000000,Y=50.000000,Z=400.000000)
     ShakeRotRate=(X=12500.000000,Y=12500.000000,Z=12500.000000)
@@ -110,7 +110,7 @@ defaultproperties
     ShakeOffsetRate=(X=1000.000000,Y=1000.000000,Z=1000.000000)
     ShakeOffsetTime=3.000000
     BotRefireRate=1.500000
-    FlashEmitterClass=Class'ScrnHTec.NitroMuzzleFlash'
+    FlashEmitterClass=class'NitroMuzzleFlash'
     aimerror=1.000000
     Spread=1000
     SpreadStyle=SS_Line

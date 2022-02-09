@@ -226,8 +226,8 @@ simulated singular function HitWall(vector HitNormal, actor Wall)
 
 defaultproperties
 {
-     Trail1Class=Class'ScrnHTec.NitroTrail'
-     Trail2Class=Class'ScrnHTec.NitroTrailB'
+     Trail1Class=class'NitroTrail'
+     Trail2Class=class'NitroTrailB'
      MaxPenetrations=1
      PenDamageReduction=0.000000
      HeadShotDamageMult=1.000000
@@ -237,9 +237,9 @@ defaultproperties
      Damage=5
      DamageRadius=120.000000
      MomentumTransfer=0.000000
-     MyDamageType=Class'ScrnHTec.DamTypeFreezerNitro'
+     MyDamageType=class'DamTypeFreezerNitro'
      ImpactSound=SoundGroup'KF_EnemiesFinalSnd.Bloat.Bloat_AcidSplash'
-     ExplosionDecal=Class'ScrnHTec.NitroDecal'
+     ExplosionDecal=class'NitroDecal'
      DrawType=DT_None
      StaticMesh=None
      Physics=PHYS_Falling

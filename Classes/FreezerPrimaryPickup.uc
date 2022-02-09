@@ -29,7 +29,7 @@ defaultproperties
      AmmoItemName="Ice Darts"
      CorrespondingPerkIndex=11
      EquipmentCategoryID=3
-     InventoryType=Class'ScrnHTec.FreezerGun'
+     InventoryType=class'FreezerGun'
      PickupMessage="You got the Cryo Mass Driver 14"
      PickupSound=Sound'KF_NailShotgun.Handling.KF_NailShotgun_Pickup'
      PickupForce="AssaultRiflePickup"

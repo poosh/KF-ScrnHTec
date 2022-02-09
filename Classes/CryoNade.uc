@@ -192,8 +192,8 @@ defaultproperties
      ExplosionSound=SoundGroup'KF_GrenadeSnd.NadeBase.MedicNade_Explode'
      Damage=10 // Damage per second = Damage / FreezeRate
      DamageRadius=175.000000
-     MyDamageType=Class'ScrnHTec.DamTypeCryoNade'
-     ExplosionDecal=Class'ScrnHTec.NitroDecal'
+     MyDamageType=class'DamTypeCryoNade'
+     ExplosionDecal=class'NitroDecal'
      StaticMesh=StaticMesh'KF_pickups5_Trip.nades.MedicNade_Pickup'
      DrawScale=1.000000
      SoundVolume=150

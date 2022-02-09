@@ -29,7 +29,7 @@ defaultproperties
 {
      FreezeRatio=1.000000
      ShatteringDamageMult=1.0
-     WeaponClass=Class'ScrnHTec.FreezerGun'
+     WeaponClass=class'FreezerGun'
      DeathString="%o frozen by %k."
      FemaleSuicide="%o froze till death."
      MaleSuicide="%o froze till death."

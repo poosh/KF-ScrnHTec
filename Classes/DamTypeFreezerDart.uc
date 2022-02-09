@@ -4,7 +4,7 @@ class DamTypeFreezerDart extends DamTypeFreezerBase
     
 defaultproperties
 {
-    WeaponClass=Class'ScrnHTec.FreezerGun'
+    WeaponClass=class'FreezerGun'
     ShatteringDamageMult=1.5
     FreezeRatio=0.600000
     FoT_Duration=2

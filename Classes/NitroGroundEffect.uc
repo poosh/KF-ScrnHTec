@@ -31,7 +31,7 @@ defaultproperties
          StartVelocityRange=(X=(Min=-85.000000,Max=85.000000),Y=(Min=-85.000000,Max=85.000000))
          StartVelocityRadialRange=(Min=-40.000000,Max=40.000000)
      End Object
-     Emitters(0)=SpriteEmitter'ScrnHTec.NitroGroundEffect.SpriteEmitter0'
+     Emitters(0)=SpriteEmitter0
 
      LifeSpan=5.000000
 }

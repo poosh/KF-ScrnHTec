@@ -412,8 +412,8 @@ defaultproperties
     bIsTier3Weapon=True
     PlayerIronSightFOV=70.000000
     ZoomedDisplayFOV=40.000000
-    FireModeClass(0)=Class'ScrnHTec.FreezerFire'
-    FireModeClass(1)=Class'ScrnHTec.FreezerAltFire'
+    FireModeClass(0)=class'FreezerFire'
+    FireModeClass(1)=class'FreezerAltFire'
     PutDownAnim="PutDown"
 
     SelectForce="SwitchToAssaultRifle"
@@ -426,10 +426,10 @@ defaultproperties
     Priority=150
     InventoryGroup=4
     GroupOffset=15
-    PickupClass=Class'ScrnHTec.FreezerPickup'
+    PickupClass=class'FreezerPickup'
     PlayerViewOffset=(X=25.000000,Y=23.000000,Z=-5.000000)
     BobDamping=4.500000
-    AttachmentClass=Class'ScrnHTec.FreezerAttachment'
+    AttachmentClass=class'FreezerAttachment'
     IconCoords=(X1=245,Y1=39,X2=329,Y2=79)
     ItemName="Cryo Mass Driver 14 SE"
     TransientSoundVolume=1.250000

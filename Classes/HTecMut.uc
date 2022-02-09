@@ -4,8 +4,8 @@ class HTecMut extends ScrnAchMutator;
 defaultproperties
 {
     VersionNumber=96909
-    AchClass=class'ScrnHTec.FreezeAch'
-    AchHandler=class'ScrnHTec.FreezeAchHandler'
+    AchClass=class'FreezeAch'
+    AchHandler=class'FreezeAchHandler'
 
     GroupName="KF-Freezer"
     FriendlyName="ScrN Horzine Technician"

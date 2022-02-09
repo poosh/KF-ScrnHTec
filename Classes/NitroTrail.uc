@@ -23,7 +23,7 @@ defaultproperties
          TextureVSubdivisions=8
          LifetimeRange=(Min=1.000000,Max=1.400000)
      End Object
-     Emitters(0)=SpriteEmitter'ScrnHTec.NitroTrail.SpriteEmitter0'
+     Emitters(0)=SpriteEmitter0
 
      Begin Object Class=SpriteEmitter Name=SpriteEmitter1
          UseCollision=True
@@ -50,7 +50,7 @@ defaultproperties
          StartVelocityRange=(X=(Min=-300.000000,Max=300.000000),Y=(Min=-300.000000,Max=300.000000),Z=(Min=-300.000000,Max=300.000000))
          VelocityLossRange=(Y=(Max=5.000000),Z=(Max=5.000000))
      End Object
-     Emitters(1)=SpriteEmitter'ScrnHTec.NitroTrail.SpriteEmitter1'
+     Emitters(1)=SpriteEmitter1
 
      Physics=PHYS_Trailer
      LifeSpan=2.900000

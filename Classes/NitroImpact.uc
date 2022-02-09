@@ -30,7 +30,7 @@ defaultproperties
          LifetimeRange=(Min=3.000000,Max=3.000000)
          StartVelocityRange=(X=(Min=-5.000000,Max=5.000000),Y=(Min=-5.000000,Max=5.000000),Z=(Min=-5.000000,Max=5.000000))
      End Object
-     Emitters(0)=SpriteEmitter'ScrnHTec.NitroImpact.SpriteEmitter1'
+     Emitters(0)=SpriteEmitter1
 
      Begin Object Class=SpriteEmitter Name=SpriteEmitter3
          UseColorScale=True
@@ -61,7 +61,7 @@ defaultproperties
          LifetimeRange=(Min=3.000000,Max=3.000000)
          StartVelocityRange=(X=(Min=-7.500000,Max=7.500000),Y=(Min=-7.500000,Max=7.500000),Z=(Min=-20.000000,Max=20.000000))
      End Object
-     Emitters(1)=SpriteEmitter'ScrnHTec.NitroImpact.SpriteEmitter3'
+     Emitters(1)=SpriteEmitter3
 
      LifeSpan=5.000000
 }

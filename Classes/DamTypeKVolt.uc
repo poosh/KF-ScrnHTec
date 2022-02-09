@@ -7,7 +7,7 @@ defaultproperties
     FoT_Duration=4
     FoT_Ratio=0.5
     ShatteringDamageMult=2.0
-    WeaponClass=Class'ScrnHTec.KVolt'
+    WeaponClass=class'KVolt'
     bRagdollBullet=True
     KDamageImpulse=1500.000000
     KDeathVel=210.000000

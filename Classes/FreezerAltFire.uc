@@ -41,7 +41,7 @@ defaultproperties
     FireEndAnim="FireAltEnd"
     FireRate=0.070000
     BotRefireRate=0.070000
-    AmmoClass=Class'ScrnHTec.FreezerAmmo'
-    ProjectileClass=Class'ScrnHTec.FreezerNitroProjectile'
-    FlashEmitterClass=Class'ScrnHTec.NitroMuzzleFlash'
+    AmmoClass=class'FreezerAmmo'
+    ProjectileClass=class'FreezerNitroProjectile'
+    FlashEmitterClass=class'NitroMuzzleFlash'
 }

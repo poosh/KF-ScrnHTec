@@ -141,8 +141,8 @@ static function string GetCustomLevelInfo( byte Level )
 
 defaultproperties
 {
-    DefaultDamageType=Class'ScrnHTec.DamTypeFreezerDart'
-    DefaultDamageTypeNoBonus=Class'ScrnHTec.DamTypeFreezerNoDmgBonus' // allows perk progression, but doesn't add damage bonuses
+    DefaultDamageType=class'DamTypeFreezerDart'
+    DefaultDamageTypeNoBonus=class'DamTypeFreezerNoDmgBonus' // allows perk progression, but doesn't add damage bonuses
     SamePerkAch="OP_HTec"
 
     SkillInfo="PERK SKILLS:|Cryo Grenades|Higher frozen dosh value|Armor does not slow you down|60% less damage from Bloat Bile and Siren Scream while Armor > 100"

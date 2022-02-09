@@ -3,6 +3,6 @@ class FreezerDartAmmoPickup extends KFAmmoPickup;
 defaultproperties
 {
      AmmoAmount=30
-     InventoryType=Class'ScrnHTec.FreezerDartAmmo'
+     InventoryType=class'FreezerDartAmmo'
      PickupMessage="Ice Shards"
 }

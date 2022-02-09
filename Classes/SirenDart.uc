@@ -9,7 +9,7 @@ simulated function PostBeginPlay()
 
 defaultproperties
 {
-    MyDamageType=Class'ScrnHTec.DamTypeSirenDart'
+    MyDamageType=class'DamTypeSirenDart'
     Damage=8
     Speed=1000
     MaxSpeed=3000
