@@ -225,6 +225,9 @@ function int FrozenIndex(KFMonster M, bool bCreate)
 {
     local int i;
 
+    if (M == none)
+        return -1;
+
     for ( i=0; i < Frozen.length; ++i )
         if ( Frozen[i].M == M )
             return i;
