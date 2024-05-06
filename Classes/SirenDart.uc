@@ -10,7 +10,7 @@ simulated function PostBeginPlay()
 defaultproperties
 {
     MyDamageType=class'DamTypeSirenDart'
-    Damage=8
+    Damage=5
     Speed=1000
     MaxSpeed=3000
     LifeSpan=8

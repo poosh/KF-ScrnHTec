@@ -68,7 +68,7 @@ static function int AddDamage(KFPlayerReplicationInfo KFPRI, KFMonster Injured, 
             || ClassIsChildOf(DmgType, class'DamTypeZEDGunMKII') )
     {
         // 30% base bonus + 5% per level
-        InDamage *= 1.30 + 0.05 * GetClientVeteranSkillLevel(KFPRI);
+        InDamage *= 1.3001 + 0.05 * GetClientVeteranSkillLevel(KFPRI);
     }
 
     return InDamage;

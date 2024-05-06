@@ -3,7 +3,7 @@ class CryoThrowerPickup extends KFWeaponPickup;
 defaultproperties
 {
     CorrespondingPerkIndex=11
-    Weight=8
+    Weight=7
     cost=2000
     AmmoCost=55
     BuyClipSize=100

@@ -12,6 +12,11 @@ var float FrozenDamageResistance; // frozen zed gets less damage
 var float FrozenDamageMult;       // but it is possible to break the ice and instant kill zed
 var float FrozenDamageMultHS;     // damage that can do headshots does more damage to ice
 var float FrozenDamageMultSG;     // shotgun-specific damage mult
+var int   FrozenDoT;              // damage per second a frozen zed receives from cold
+// How much damage ice darts should do per shattered zed health.
+// SonicShatterDamagePerHealth isn't scaled by the difficulty since the zed health already is
+var float SonicShatterDamagePerHealth;
+var int   SonicShatterMaxDamage;  // max damage that shattering one zed can cause on Normal difficulty
 
 var class<Emitter> ShatteredIce;
 var class<Projectile> ShatterProjClass;
@@ -35,6 +40,7 @@ struct SFrozen {
     var float FoT;
     var float FoT_Remaining;
     var float WarmTime; // time after which zed should get warmed up
+    var float NextDamageTime;
 
     var int Damage; // damage done during freeze
     var vector FocalPoint;
@@ -111,7 +117,7 @@ function int NetDamage( int OriginalDamage, int Damage, pawn injured, pawn insti
                 }
             }
 
-            if ( !ZedVictim.bBurnified ) {
+            if ( !ZedVictim.bBurnified && FreezeDT.default.FreezeRatio > 0.0 ) {
                 idx = FrozenIndex(ZedVictim, true);
                 Frozen[idx].CurrentFreeze += Damage * FreezeDT.default.FreezeRatio;
                 if ( Frozen[idx].bFrozen ) {
@@ -263,24 +269,37 @@ function Timer()
     local int i;
     local bool bRemove;
     local byte FrozenCount;
+    local KFMonster M;
 
     for ( i = Frozen.length - 1; i >= 0; --i ) {
-        bRemove = Frozen[i].M == none || Frozen[i].M.Health <= 0;
+        M = Frozen[i].M;
+        bRemove = M == none || M.Health <= 0;
 
-        if ( !bRemove ) {
+        if (!bRemove && Frozen[i].bFrozen && Level.TimeSeconds > Frozen[i].NextDamageTime && Frozen[i].LastFrozenBy != none) {
+            Frozen[i].NextDamageTime = Level.TimeSeconds + 0.99;
+            M.TakeDamage(FrozenDoT, Frozen[i].LastFrozenBy.Pawn, M.Location, vect(0, 0, 0),
+                    class'DamTypeFreezerDoT');
+            bRemove = M == none || M.Health <= 0;
+            if (!bRemove) {
+                // fix stalker clock glitch
+                M.SetOverlayMaterial(FreezeRI.FrozenMaterial, 999, true);
+            }
+        }
+
+        if (!bRemove) {
             if ( Frozen[i].FoT_Remaining > 0 ) {
                 Frozen[i].CurrentFreeze += Frozen[i].FoT * FreezeTimerRate;
                 Frozen[i].FoT_Remaining -= FreezeTimerRate;
                 Frozen[i].WarmTime = fmax(Frozen[i].WarmTime, Level.TimeSeconds + 1.0);
                 if ( !Frozen[i].bFrozen && Frozen[i].CurrentFreeze >= Frozen[i].FreezeTreshold ) {
-                    FreezeZed(Frozen[i].M, i);
+                    FreezeZed(M, i);
                 }
             }
             else {
                 if ( Frozen[i].CurrentFreeze > 0 && Level.TimeSeconds >= Frozen[i].WarmTime ) {
                     Frozen[i].CurrentFreeze -= fmax(Frozen[i].CurrentFreeze * 0.2, 20.0) * FreezeTimerRate;
                     if ( Frozen[i].bFrozen && Frozen[i].CurrentFreeze < Frozen[i].FreezeTreshold ) {
-                        UnfreezeZed(Frozen[i].M, i);
+                        UnfreezeZed(M, i);
                         Frozen[i].Damage = 0;
                         Frozen[i].CurrentFreeze *= 0.80;
                     }
@@ -289,15 +308,16 @@ function Timer()
                 }
             }
 
-            if ( Frozen[i].bFrozen ) {
+            if (Frozen[i].bFrozen) {
                 FrozenCount++;
-                if ( Frozen[i].M.IsAnimating(0) || Frozen[i].M.IsAnimating(1) )
-                    FreezeZed(Frozen[i].M, i);
-                else if ( Frozen[i].M.Controller != none ) {
+                if (M.IsAnimating(0) || M.IsAnimating(1)) {
+                    FreezeZed(M, i);
+                }
+                else if ( M.Controller != none ) {
                     // prevent rotating
-                    Frozen[i].M.Controller.FocalPoint = Frozen[i].FocalPoint;
-                    Frozen[i].M.Controller.Enemy = none;
-                    Frozen[i].M.Controller.Focus = none;
+                    M.Controller.FocalPoint = Frozen[i].FocalPoint;
+                    M.Controller.Enemy = none;
+                    M.Controller.Focus = none;
                 }
             }
         }
@@ -305,6 +325,7 @@ function Timer()
         if ( bRemove )
             Frozen.Remove(i, 1);
     }
+
     if ( FrozenCount != FreezeRI.FrozenCount ) {
         FreezeRI.FrozenCount = FrozenCount;
         FreezeRI.NetUpdateTime = Level.TimeSeconds - 1;
@@ -432,7 +453,7 @@ function UnfreezeZed(KFMonster M, int FrozenIndex)
     M.Controller.GotoState('ZombieHunt');
     M.GroundSpeed = M.GetOriginalGroundSpeed();
     // this should "wake up" raged scrakes
-    M.TakeDamage(1, M, M.Location, vect(0,0,0), class'DamTypeFreezerBase');
+    M.TakeDamage(1, M, M.Location, vect(0,0,0), class'DamTypeFreezerDoT');
 }
 
 function bool ShatterZed(KFMonster ZedVictim, int FrozenIdx, Controller Killer, class<DamageType> DamageType)
@@ -537,9 +558,8 @@ function bool ShatterZed(KFMonster ZedVictim, int FrozenIdx, Controller Killer, 
 function SonicShatterZed(KFMonster ZedVictim, Pawn instigatedBy, class<KFWeaponDamageType> DamageType)
 {
     local vector HitLocation, ProjLoc;
-    local float ColH, ColR;
-    local float DmgMult;
-    local int Count;
+    local float ColH, ColR, DiffMult;
+    local int Damage, c;
     local Projectile proj;
 
     if ( instigatedBy == none || instigatedBy == ZedVictim )
@@ -549,11 +569,8 @@ function SonicShatterZed(KFMonster ZedVictim, Pawn instigatedBy, class<KFWeaponD
     HitLocation = ZedVictim.Location; // calculate shard offset from the center of zed, not where it got hit
     ColH = ZedVictim.CollisionHeight;
     ColR = ZedVictim.CollisionRadius;
-    Count = ZedVictim.Health / 50;
-    if ( KFMonster(instigatedBy) != none )
-        DmgMult = KFMonster(instigatedBy).DifficultyDamageModifer();
-    else
-        DmgMult = 1.0;
+    DiffMult = ZedVictim.DifficultyDamageModifer();
+    Damage = min(ZedVictim.Health * SonicShatterDamagePerHealth, SonicShatterMaxDamage * DiffMult);
 
     if ( !ShatterZed(ZedVictim, -1, instigatedBy.Controller, DamageType) )
         return; // unable to shatter zed
@@ -564,21 +581,20 @@ function SonicShatterZed(KFMonster ZedVictim, Pawn instigatedBy, class<KFWeaponD
         ZedVictim.SetCollision(false);
     }
 
-    if ( Count > 20 ) {
-        DmgMult += float(Count-20) / 20.0;
-        Count = 20;
-    }
-
     ProjLoc = HitLocation; // first projectile always spawn in the center to fly a straight line
-    while ( Count > 0 ) {
-        --Count;
-
+    while (Damage >= ShatterProjClass.default.Damage && ++c <= 20) {
         proj = instigatedBy.Spawn(ShatterProjClass, instigatedBy, , ProjLoc, rotator(ProjLoc - instigatedBy.Location));
         if ( proj != none ) {
             proj.Instigator = instigatedBy;
-            proj.Damage *= DmgMult * (0.85 + 0.30*frand());
+            proj.Damage *= DiffMult * (1.0 + frand());
+            Damage -= proj.Damage;
+            if (Damage < proj.default.Damage) {
+                proj.Damage += Damage;
+                Damage = 0;
+            }
+            // Level.GetLocalPlayerController().ClientMessage(ShatterProjClass $ " #" $ c $ " Damage=" $ proj.Damage, 'log');
         }
-        // pickup random location inside collision cylinder for the next projectile
+        // pick a random location inside the collision cylinder for the next projectile
         ProjLoc = HitLocation;
         ProjLoc.X += ColR * (0.90 - 1.8 * frand());
         ProjLoc.Y += ColR * (0.90 - 1.8 * frand());
@@ -600,6 +616,9 @@ defaultproperties
     FrozenDamageMult=1.500000
     FrozenDamageMultHS=4.500000
     FrozenDamageMultSG=2.500000
+    FrozenDoT=24
+    SonicShatterDamagePerHealth=0.08
+    SonicShatterMaxDamage=80
     ShatterProjClass=class'SirenDart'
     ShatteredIce=class'IceChunkEmitter'
     bDosh=True

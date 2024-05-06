@@ -131,7 +131,7 @@ defaultproperties
      ReloadAnimRate=1.000000
      WeaponReloadAnim="Reload_IJC_BlowerThrower"
      MinimumFireRange=50
-     Weight=8
+     Weight=7
      bHasAimingMode=True
      IdleAimAnim="Idle"
      QuickPutDownTime=0.250000
