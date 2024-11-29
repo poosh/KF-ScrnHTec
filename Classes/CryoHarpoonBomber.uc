@@ -51,6 +51,19 @@ function ServerChangeFireModeEx(byte NewFuseIndex)
     CryoHarpoonFire(FireMode[0]).FuseTime = FuseTimes[FuseIndex];
 }
 
+simulated function bool AllowReload()
+{
+    UpdateMagCapacity(Instigator.PlayerReplicationInfo);
+
+    if( !Instigator.IsHumanControlled() ) {
+        return !bIsReloading && MagAmmoRemaining <= MagCapacity && AmmoAmount(0) > MagAmmoRemaining;
+    }
+
+    return !( FireMode[0].IsFiring() || FireMode[1].IsFiring() || bIsReloading || ClientState == WS_BringUp
+            || MagAmmoRemaining >= MagCapacity + 1 || AmmoAmount(0) <= MagAmmoRemaining
+            || (FireMode[0].NextFireTime - Level.TimeSeconds) > 0.1 );
+}
+
 exec function ReloadMeNow()
 {
     local float ReloadMulti;
@@ -123,6 +136,26 @@ simulated function ClientReload()
         PlayAnim(ReloadShortAnim, ReloadAnimRate * ReloadMulti, 0.1);
     }
 }
+
+function AddReloadedAmmo()
+{
+    local int a;
+
+    UpdateMagCapacity(Instigator.PlayerReplicationInfo);
+
+    a = MagCapacity + int(bShortReload);
+
+    if ( AmmoAmount(0) >= a )
+        MagAmmoRemaining = a;
+    else
+        MagAmmoRemaining = AmmoAmount(0);
+
+    if ( PlayerController(Instigator.Controller) != none && KFSteamStatsAndAchievements(PlayerController(Instigator.Controller).SteamStatsAndAchievements) != none )
+    {
+        KFSteamStatsAndAchievements(PlayerController(Instigator.Controller).SteamStatsAndAchievements).OnWeaponReloaded();
+    }
+}
+
 
 defaultproperties
 {
