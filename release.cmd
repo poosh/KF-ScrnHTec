@@ -56,6 +56,7 @@ REM call :MakeUz2 Animations\HTec_A.ukx
 call :MakeUz2 System\%KFPACKAGE%.u
 echo %RELEASEDIR%\uz2:
 dir /B %RELEASEDIR%\uz2
+xcopy /F /I /Y %RELEASEDIR%\Uz2\*.uz2               %BUNDLEUZ2%\
 
 echo Release is ready!
 
