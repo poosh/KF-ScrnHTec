@@ -16,7 +16,7 @@ var        string            AmbientFireSoundRef;
 static function PreloadAssets(LevelInfo LevelInfo, optional KFShotgunFire Spawned)
 {
     local NitroFire F;
-    
+
     super.PreloadAssets(LevelInfo, Spawned);
 
     if ( default.FireEndSoundRef != "" )
@@ -98,13 +98,19 @@ event ModeDoFire()
 
 simulated function bool AllowFire()
 {
-    if(KFWeapon(Weapon).bIsReloading)
+    local KFPawn KFP;
+
+    if (KFWeap.bIsReloading)
         return false;
-    if(KFWeapon(Weapon).MagAmmoRemaining < 1)
-    {
-        if(Level.TimeSeconds - LastClickTime > FireRate)
-        {
-            Weapon.PlayOwnedSound(NoAmmoSound, SLOT_Interact, TransientSoundVolume,,,, false);
+
+    KFP = KFPawn(Instigator);
+    if (KFP != none && (KFP.SecondaryItem != none || KFP.bThrowingNade))
+        return false;
+
+    if (KFWeap.MagAmmoRemaining < AmmoPerFire) {
+        if ( Level.TimeSeconds - LastClickTime > FireRate ) {
+            if (NoAmmoSound != none)
+                Weapon.PlayOwnedSound(NoAmmoSound, SLOT_Interact, TransientSoundVolume,,,, false);
             LastClickTime = Level.TimeSeconds;
             if(Weapon.HasAnim(EmptyAnim))
                 weapon.PlayAnim(EmptyAnim, EmptyAnimRate, 0.0);
@@ -112,8 +118,9 @@ simulated function bool AllowFire()
         return false;
     }
     LastClickTime = Level.TimeSeconds;
-    return Super.AllowFire();
+    return super(WeaponFire).AllowFire();
 }
+
 
 /* =================================================================================== *
 * FireLoop
