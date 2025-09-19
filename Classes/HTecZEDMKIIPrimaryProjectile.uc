@@ -3,6 +3,7 @@ class HTecZEDMKIIPrimaryProjectile extends HTecZEDGunProjectile;
 defaultproperties
 {
     MyDamageType=class'DamTypeHTecZEDGunMKII'
+    ImpactDamageType=class'DamTypeHTecZEDGunMKII'
     ImpactDamage=80
 
     ExplosionClass=Class'KFMod.ZEDMKIIPrimaryProjectileImpact'

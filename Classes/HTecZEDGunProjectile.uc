@@ -8,6 +8,7 @@ defaultproperties
     ExplosionSoundVolume=1.650000
     ArmDistSquared=0.000000
 
+    ImpactDamageType=class'DamTypeHTecZEDGun'
     MyDamageType=class'DamTypeHTecZEDGun'
     ImpactDamage=100
 
