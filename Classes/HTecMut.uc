@@ -3,7 +3,7 @@ class HTecMut extends ScrnAchMutator;
 
 defaultproperties
 {
-    VersionNumber=97219
+    VersionNumber=97220
     AchClass=class'FreezeAch'
     AchHandler=class'FreezeAchHandler'
 

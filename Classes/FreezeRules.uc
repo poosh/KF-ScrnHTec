@@ -217,7 +217,7 @@ function bool PreventDeath(Pawn Killed, Controller Killer, class<DamageType> dam
     // killing zapped zed gives perk progression to zapper
     if ( Zapper != none && SRStatsBase(Zapper.SteamStatsAndAchievements) != none
             && SRStatsBase(Zapper.SteamStatsAndAchievements).Rep != none )
-        SRStatsBase(Zapper.SteamStatsAndAchievements).Rep.ProgressCustomValue(Class'HTecProg', min(1, M.default.ZapThreshold * 4.01));
+        SRStatsBase(Zapper.SteamStatsAndAchievements).Rep.ProgressCustomValue(Class'HTecProg', max(1, M.default.ZapThreshold * 4.01));
 
     return false;
 }
@@ -502,15 +502,7 @@ function bool ShatterZed(KFMonster ZedVictim, int FrozenIdx, Controller Killer, 
     }
 
     if ( FreezerStats != none && !ZedVictim.bDecapitated ) {
-        if (ZedVictim.default.Health >= 1500)
-            i = 4;
-        if (ZedVictim.default.Health >= 1000)
-            i = 3;
-        else if (ZedVictim.default.Health >= 500)
-            i = 2;
-        else
-            i = 1;
-        FreezerStats.Rep.ProgressCustomValue(Class'HTecProg', i);
+        FreezerStats.Rep.ProgressCustomValue(Class'HTecProg', max(1, ZedVictim.HealthMax / 500));
 
         if ( LastShatteredBy != none && LastShatteredBy != Frozen[FrozenIdx].LastFrozenBy ) {
             class'ScrnAchCtrl'.static.ProgressAchievementByID(FreezerStats.Rep, 'Freeze_ShatterZeds', 1);
