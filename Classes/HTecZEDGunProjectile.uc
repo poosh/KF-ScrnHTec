@@ -10,7 +10,7 @@ defaultproperties
 
     ImpactDamageType=class'DamTypeHTecZEDGun'
     MyDamageType=class'DamTypeHTecZEDGun'
-    ImpactDamage=100
+    ImpactDamage=90
 
     ExplosionClass=Class'KFMod.ZEDProjectileImpact'
     TracerClass=Class'KFMod.ZEDProjectileTrail'

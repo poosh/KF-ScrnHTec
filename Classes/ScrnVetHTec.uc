@@ -55,7 +55,7 @@ static function float AddExtraAmmoFor(KFPlayerReplicationInfo KFPRI, Class<Ammun
                 || ClassIsChildOf(AmmoType, class'CryoHarpoonAmmo' )
                 || ClassIsInArray(default.PerkedAmmo, AmmoType)  //v3 - custom weapon support
             )
-        return 1.0 + 0.05 * GetClientVeteranSkillLevel(KFPRI);
+        return 1.0001 + 0.05 * GetClientVeteranSkillLevel(KFPRI);
     return 1.0;
 }
 

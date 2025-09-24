@@ -22,5 +22,5 @@ static function ScoredHeadshot(KFSteamStatsAndAchievements KFStatsAndAchievement
 defaultproperties
 {
     WeaponClass=class'HTecZEDGun'
-    HeadShotDamageMult=1.65
+    HeadShotDamageMult=2.0
 }
