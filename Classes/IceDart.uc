@@ -49,20 +49,21 @@ simulated function ProcessTouch (Actor Other, vector HitLocation)
 
 defaultproperties
 {
-     ImpactSounds(0)=SoundGroup'ProjectileSounds.Bullets.Impact_Metal'
-     ImpactSounds(1)=SoundGroup'ProjectileSounds.Bullets.Impact_Metal'
-     ImpactSounds(2)=SoundGroup'ProjectileSounds.Bullets.Impact_Metal'
-     ImpactSounds(3)=SoundGroup'ProjectileSounds.Bullets.Impact_Metal'
-     ImpactSounds(4)=SoundGroup'ProjectileSounds.Bullets.Impact_Metal'
-     ImpactSounds(5)=SoundGroup'ProjectileSounds.Bullets.Impact_Metal'
-     ImpactEffect=class'IceDartHitEffect'
-     Damage=45.000000
-     MyDamageType=class'DamTypeFreezerBase'
-     ExplosionDecal=Class'KFMod.NailGunDecal'
-     StaticMesh=StaticMesh'HTec_A.IceDart-PROJ'
-     LifeSpan=5.000000
-     DrawScale=0.500000
-     Speed=5000
-     MaxSpeed=7000
-     MaxPenetrations=1
+    ImpactSounds(0)=SoundGroup'ProjectileSounds.Bullets.Impact_Metal'
+    ImpactSounds(1)=SoundGroup'ProjectileSounds.Bullets.Impact_Metal'
+    ImpactSounds(2)=SoundGroup'ProjectileSounds.Bullets.Impact_Metal'
+    ImpactSounds(3)=SoundGroup'ProjectileSounds.Bullets.Impact_Metal'
+    ImpactSounds(4)=SoundGroup'ProjectileSounds.Bullets.Impact_Metal'
+    ImpactSounds(5)=SoundGroup'ProjectileSounds.Bullets.Impact_Metal'
+    ImpactEffect=class'IceDartHitEffect'
+    Damage=45.000000
+    HeadShotDamageMult=1.25
+    MyDamageType=class'DamTypeFreezerBase'
+    ExplosionDecal=Class'KFMod.NailGunDecal'
+    StaticMesh=StaticMesh'HTec_A.IceDart-PROJ'
+    LifeSpan=5.000000
+    DrawScale=0.500000
+    Speed=5000
+    MaxSpeed=7000
+    MaxPenetrations=1
 }

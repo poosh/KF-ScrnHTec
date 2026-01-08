@@ -125,45 +125,45 @@ simulated function bool ConsumeAmmo( int Mode, float Load, optional bool bAmount
 
 defaultproperties
 {
-     MagCapacity=120
-     ReloadRate=4.140000
-     ReloadAnim="Reload"
-     ReloadAnimRate=1.000000
-     WeaponReloadAnim="Reload_IJC_BlowerThrower"
-     MinimumFireRange=50
-     Weight=7
-     bHasAimingMode=True
-     IdleAimAnim="Idle"
-     QuickPutDownTime=0.250000
-     StandardDisplayFOV=70.000000
-     bModeZeroCanDryFire=True
-     TraderInfoTexture=Texture'KF_IJC_HUD.Trader_Weapon_Icons.Trader_BlowerThrower'
-     bIsTier2Weapon=True
-     MeshRef="KF_IJC_Halloween_Weps_2.BlowerThrower"
-     SkinRefs(0)="HTec_A.CryoThrower.CryoThrower_cmb"
-     SelectSoundRef="KF_FY_BlowerThrowerSND.WEP_Bile_Foley_Select"
-     HudImageRef="KF_IJC_HUD.WeaponSelect.BlowerThrower_unselected"
-     SelectedHudImageRef="KF_IJC_HUD.WeaponSelect.BlowerThrower"
-     AppID=0
-     ZoomInRotation=(Pitch=-1000,Roll=1500)
-     ZoomedDisplayFOV=60.000000
-     FireModeClass(0)=class'CryoThrowerFire'
-     FireModeClass(1)=class'CryoThrowerAltFire'
-     PutDownAnim="PutDown"
-     PutDownTime=0.500000
-     AIRating=0.700000
-     CurrentRating=0.700000
-     Description="A leaf blower modified to spray liquid nitrogen."
-     EffectOffset=(X=100.000000,Y=25.000000,Z=-10.000000)
-     DisplayFOV=70.000000
-     Priority=103
-     InventoryGroup=4
-     GroupOffset=21
-     PickupClass=class'CryoThrowerPickup'
-     PlayerViewOffset=(X=15.000000,Y=20.000000,Z=-3.000000)
-     BobDamping=6.000000
-     AttachmentClass=class'CryoThrowerAttachment'
-     IconCoords=(X1=245,Y1=39,X2=329,Y2=79)
-     ItemName="HTec Cryo Thrower"
-     TransientSoundVolume=1.250000
+    MagCapacity=120
+    ReloadRate=4.140000
+    ReloadAnim="Reload"
+    ReloadAnimRate=1.000000
+    WeaponReloadAnim="Reload_IJC_BlowerThrower"
+    MinimumFireRange=50
+    Weight=6
+    bHasAimingMode=True
+    IdleAimAnim="Idle"
+    QuickPutDownTime=0.250000
+    StandardDisplayFOV=70.000000
+    bModeZeroCanDryFire=True
+    TraderInfoTexture=Texture'KF_IJC_HUD.Trader_Weapon_Icons.Trader_BlowerThrower'
+    bIsTier2Weapon=True
+    MeshRef="KF_IJC_Halloween_Weps_2.BlowerThrower"
+    SkinRefs(0)="HTec_A.CryoThrower.CryoThrower_cmb"
+    SelectSoundRef="KF_FY_BlowerThrowerSND.WEP_Bile_Foley_Select"
+    HudImageRef="KF_IJC_HUD.WeaponSelect.BlowerThrower_unselected"
+    SelectedHudImageRef="KF_IJC_HUD.WeaponSelect.BlowerThrower"
+    AppID=0
+    ZoomInRotation=(Pitch=-1000,Roll=1500)
+    ZoomedDisplayFOV=60.000000
+    FireModeClass(0)=class'CryoThrowerFire'
+    FireModeClass(1)=class'CryoThrowerAltFire'
+    PutDownAnim="PutDown"
+    PutDownTime=0.500000
+    AIRating=0.700000
+    CurrentRating=0.700000
+    Description="A leaf blower modified to spray liquid nitrogen."
+    EffectOffset=(X=100.000000,Y=25.000000,Z=-10.000000)
+    DisplayFOV=70.000000
+    Priority=103
+    InventoryGroup=4
+    GroupOffset=21
+    PickupClass=class'CryoThrowerPickup'
+    PlayerViewOffset=(X=15.000000,Y=20.000000,Z=-3.000000)
+    BobDamping=6.000000
+    AttachmentClass=class'CryoThrowerAttachment'
+    IconCoords=(X1=245,Y1=39,X2=329,Y2=79)
+    ItemName="HTec Cryo Thrower"
+    TransientSoundVolume=1.250000
 }

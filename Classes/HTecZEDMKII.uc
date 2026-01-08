@@ -8,4 +8,6 @@ defaultproperties
     FireModeClass(1)=class'HTecZEDMKIIAltFire'
     ItemName="HTec ZED Eradication Device MKII"
     Weight=5
+    UnlockedByAchievement=-1
+    AppID=0
 }

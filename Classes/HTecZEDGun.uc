@@ -7,5 +7,6 @@ defaultproperties
     FireModeClass(1)=class'HTecZEDGunAltFire'
     ItemName="HTec ZED Eradication Device"
     UnlockedByAchievement=-1
+    AppID=0
     Weight=7
 }

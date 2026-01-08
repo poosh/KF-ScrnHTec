@@ -6,7 +6,7 @@ defaultproperties
     Cost=2500
     BuyClipSize=3
     AmmoCost=30
-    Weight=6.0
+    Weight=5
     ItemName="Cryo Harpoon Bomber"
     ItemShortName="Cryo Harpoon"
     AmmoItemName="Cryo Harpoons"

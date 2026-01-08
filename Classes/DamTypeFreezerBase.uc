@@ -20,13 +20,13 @@ static function ScoredHeadshot(KFSteamStatsAndAchievements KFStatsAndAchievement
 
 defaultproperties
 {
-     FreezeRatio=1.000000
-     ShatteringDamageMult=1.0
-     WeaponClass=class'FreezerGun'
-     DeathString="%o frozen by %k."
-     FemaleSuicide="%o froze till death."
-     MaleSuicide="%o froze till death."
-     bArmorStops=False
-     DeathOverlayMaterial=Texture'HTec_A.Overlay.IceOverlay'
-     DeathOverlayTime=5.000000
+    FreezeRatio=1.000000
+    ShatteringDamageMult=1.0
+    WeaponClass=class'FreezerGun'
+    DeathString="%o frozen by %k."
+    FemaleSuicide="%o froze till death."
+    MaleSuicide="%o froze till death."
+    bArmorStops=False
+    DeathOverlayMaterial=Texture'HTec_A.Overlay.IceOverlay'
+    DeathOverlayTime=5.000000
 }

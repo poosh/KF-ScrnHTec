@@ -475,6 +475,7 @@ function bool ShatterZed(KFMonster ZedVictim, int FrozenIdx, Controller Killer, 
         KFPRI = KFPlayerReplicationInfo(Killer.PlayerReplicationInfo);
     FreezerStats = SRStatsBase(Frozen[FrozenIdx].LastFrozenBy.SteamStatsAndAchievements);
     loc = ZedVictim.Location;
+    r = ZedVictim.GetViewRotation();
 
     if ( KFPRI != none ) {
         if ( bDosh && !ZedVictim.bDecapitated ) {
@@ -519,7 +520,6 @@ function bool ShatterZed(KFMonster ZedVictim, int FrozenIdx, Controller Killer, 
 
     // DO$H DO$H DO$H DO$H DO$H
     if ( MaxDosh > 0 ) {
-        r = ZedVictim.GetViewRotation();
         for ( i=0; i<5; ++i ) {
             Dosh = Spawn(class'FrozenDosh',,, loc);
             if ( Dosh != none ) {

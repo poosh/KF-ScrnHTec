@@ -420,12 +420,12 @@ defaultproperties
     AIRating=0.550000
     CurrentRating=0.550000
     bShowChargingBar=True
-    Description="Cryo Mass Driver v014 or simply a 'Freezer Gun' is developed to ... blah blah blah ... freeze zeds"
+    Description="Cryo Mass Driver v014, or simply a 'Freezer Gun', is chambered with caseless cryogenic darts to freeze the target on impact. The dual-purpose magazines have a liquid nitrogen container for secondary attack."
     EffectOffset=(X=100.000000,Y=25.000000,Z=-10.000000)
     DisplayFOV=65.000000
     Priority=150
     InventoryGroup=4
-    GroupOffset=15
+    GroupOffset=10
     PickupClass=class'FreezerPickup'
     PlayerViewOffset=(X=25.000000,Y=23.000000,Z=-5.000000)
     BobDamping=4.500000

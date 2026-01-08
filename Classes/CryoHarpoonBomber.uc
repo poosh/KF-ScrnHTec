@@ -164,7 +164,7 @@ defaultproperties
     ReloadAnimRate=1.25
     ReloadShortAnim="Reload"
     ReloadShortRate=2.36
-    Weight=6.0
+    Weight=5
     FireModeClass(0)=Class'CryoHarpoonFire'
     ItemName="Cryo Harpoon Bomber"
     Description="Shoots harpoons filled with liquid nitrogen and T.N.T. Freeze&Shatter combo in one round! Has adjustable fuse time. Additional head damage."

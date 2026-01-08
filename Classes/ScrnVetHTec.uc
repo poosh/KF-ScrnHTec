@@ -53,6 +53,8 @@ static function float AddExtraAmmoFor(KFPlayerReplicationInfo KFPRI, Class<Ammun
                 || ClassIsChildOf(AmmoType, class'ZEDGunAmmo')
                 || ClassIsChildOf(AmmoType, class'ZEDMKIIAmmo' )
                 || ClassIsChildOf(AmmoType, class'CryoHarpoonAmmo' )
+                || ClassIsChildOf(AmmoType, class'CryoShotgunAmmo' )
+                || ClassIsChildOf(AmmoType, class'CryoShotgunZedAmmo' )
                 || ClassIsInArray(default.PerkedAmmo, AmmoType)  //v3 - custom weapon support
             )
         return 1.0001 + 0.05 * GetClientVeteranSkillLevel(KFPRI);
@@ -109,6 +111,7 @@ static function float GetCostScaling(KFPlayerReplicationInfo KFPRI, class<Pickup
             || ClassIsChildOf(Item, class'KVoltPickup') || ClassIsChildOf(Item, class'CryoThrowerPickup')
             || ClassIsChildOf(Item, class'FreezerPickup')
             || ClassIsChildOf(Item, class'CryoHarpoonPickup')
+            || ClassIsChildOf(Item, class'CryoShotgunPickup')
             || ClassIsChildOf(Item, class'ScrnHorzineVestPickup')
             || ClassIsInArray(default.PerkedPickups, Item) )
     {
